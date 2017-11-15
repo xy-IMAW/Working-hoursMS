@@ -24,7 +24,7 @@
                         <f:Toolbar ID="tool2" runat="server" ToolbarAlign="Right">  
                             <Items>
                                 <f:Button ID="btnAddProgram" runat="server" Text="添加" Icon="Add" OnClick="btnAddProgram_Click" BoxConfigAlign="Center"></f:Button>
-                             <f:Button ID="btnDeleteProgram" runat="server" Text="删除" Icon="Add" OnClick="btnDeleteProgram_Click" RegionPosition="Center"></f:Button>
+                             <f:Button ID="btnDeleteProgram" runat="server" Text="删除" Icon="Delete" OnClick="btnDeleteProgram_Click" RegionPosition="Center"></f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>

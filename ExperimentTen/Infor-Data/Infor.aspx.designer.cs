@@ -76,15 +76,6 @@ namespace WHMS.Infor_Data {
         protected global::FineUI.Panel panel2;
         
         /// <summary>
-        /// Grid1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Grid Grid1;
-        
-        /// <summary>
         /// toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -92,15 +83,6 @@ namespace WHMS.Infor_Data {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUI.Toolbar toolbar1;
-        
-        /// <summary>
-        /// btnSearch 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Button btnSearch;
         
         /// <summary>
         /// btnadd 控件。
@@ -139,6 +121,15 @@ namespace WHMS.Infor_Data {
         protected global::FineUI.Button btnStuSerach;
         
         /// <summary>
+        /// btnSearch 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Button btnSearch;
+        
+        /// <summary>
         /// btnImport 控件。
         /// </summary>
         /// <remarks>
@@ -148,13 +139,22 @@ namespace WHMS.Infor_Data {
         protected global::FineUI.Button btnImport;
         
         /// <summary>
-        /// btnDownLoad 控件。
+        /// DowmLoad 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Button btnDownLoad;
+        protected global::System.Web.UI.WebControls.Button DowmLoad;
+        
+        /// <summary>
+        /// Grid1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Grid Grid1;
         
         /// <summary>
         /// Label1 控件。

@@ -5,7 +5,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+        <style>
+                .mypanel {
+        
+        }
 
+            .mypanel .mybutton {
+             display: inline-block;
+    padding: .3em .5em;
+  background: -webkit-linear-gradient(top,#42a4e0,#2e88c0);
+background: -moz-linear-gradient(top,#42a4e0,#2e88c0);
+background: linear-gradient(top,#42a4e0,#2e88c0);
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3em;
+    box-shadow: 0 1px white inset;
+    text-align: center;
+    text-shadow: 0 1px 1px black;
+    color:white;
+    font-weight: bold;
+               width:150px;
+            }
+            .mybutton:active{
+                box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
+    border-color: rgba(0,0,0,.3);
+    background: #bbb;
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -15,23 +40,25 @@
             <Items>
                 <f:Panel ID="panel11" runat="server" Title="班级添加/工时导入" ShowHeader="true" ShowBorder="true">
                     <Toolbars>
-                        <f:Toolbar ID="tool1" runat="server" ToolbarAlign="Center" >
+                        <f:Toolbar ID="tool1" runat="server" >
                             <Items>                                
                                    <f:TextBox ID="txtClassName" runat="server" Label="班级" Text="" ShowRedStar="true" LabelAlign="Right" Required="true" Width="300px"></f:TextBox>                                    
                             </Items>  
                               <Items>
                                  <f:TextBox ID="txtGrade" runat="server" Label="年级" Text="" ShowRedStar="true" LabelAlign="Right" Required="true" AbsoluteX="200px"></f:TextBox>
                                     <f:Button ID="btnAddClass" Icon="Add" runat="server" Text="新增" OnClick="btnAddClass_Click" AbsoluteX="600px"></f:Button>
-                                  <f:Button ID="Import" Text="导入班级" runat="server" CssClass="mybutton" AbsoluteX="500px"></f:Button>
+                                  <f:Button ID="Import" Icon="PageGo" Text="导入班级" runat="server" CssClass="mybutton" AbsoluteX="500px"></f:Button>
                              <f:ContentPanel runat="server">
-                                 <asp:Button ID="DowmLoad" Text="下载班级模板" runat="server" OnClick="DownLoad_Click"/>
+                                 <div class="mypanel">
+                                 <asp:Button ID="DowmLoad" Text="下载班级模板" runat="server" CssClass="mybutton" OnClick="DownLoad_Click"/>
+                                 </div>
                              </f:ContentPanel>
                             </Items>                         
                         </f:Toolbar>
-                        <f:Toolbar ID="tool2" runat="server" ToolbarAlign="Center">
+                        <f:Toolbar ID="tool2" runat="server"  >
                          <Items>
-                             <f:Button ID="btnDownLoad" Text="下载工时模板" Icon="Accept" runat="server" OnClick="btnDownLoad_Click" AbsoluteX="100px"></f:Button>
-                              <f:Button ID="btnImport" runat="server" Text="导入工时" />
+                             <f:Button ID="btnDownLoad" Text="下载工时模板" Icon="Accept" runat="server" OnClick="btnDownLoad_Click" AbsoluteX="200px"></f:Button>
+                              <f:Button ID="btnImport" Icon="PageGo" runat="server" Text="导入工时" />
                          </Items>
                             
                      </f:Toolbar>  
@@ -57,8 +84,8 @@
                               <f:DropDownList ID="DL3" runat="server" Label="学期" Required="true" LabelAlign="Right" >
                                 </f:DropDownList>
                              
-                        <f:Button ID="btn" runat="server" Text="查看班级工时" OnClick="btn_Click"/>
-                        <f:Button ID="btn2" runat="server" Text="查看年级工时" OnClick="btn2_Click"/>
+                        <f:Button ID="btn" runat="server" Icon="ApplicationViewColumns" Text="查看班级工时" OnClick="btn_Click"/>
+                        <f:Button ID="btn2" runat="server" Icon="ApplicationViewDetail" Text="查看年级工时" OnClick="btn2_Click"/>
 
                         
                               

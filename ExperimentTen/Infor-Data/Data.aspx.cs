@@ -32,7 +32,7 @@ namespace WHMS.Infor_Data
                     DataSet myds = Common.dataSet(sqlStr);
                     gridExample.DataSource = myds;
                     gridExample.DataBind();
-                    btnAdd.OnClientClick = windowPop.GetShowReference("");
+                   
                 }
        
                 BindGrid3();
@@ -86,6 +86,63 @@ namespace WHMS.Infor_Data
             DL2.DataBind();
 
         }
+
+
+        #region 学生信息查询
+        //BindGrid1 数据库分页 查询年级学生信息，按班级和学号排序
+        private void BindGrid1(string SqlStr)
+        {
+
+            DataTable dt = Common.datatable(SqlStr);
+            // 1.设置总项数（特别注意：数据库分页一定要设置总记录数RecordCount）
+            gridExample.RecordCount = GetTotalCount(dt);
+
+            // 2.获取当前分页数据
+            DataTable table = GetPagedDataTable(gridExample.PageIndex, gridExample.PageSize, dt);
+
+            // 3.绑定到Grid
+            gridExample.DataSource = dt;
+            gridExample.DataBind();
+
+        }
+        #region 数据库分页处理
+        /// <summary>
+        /// 模拟返回总项数
+        /// </summary>
+        /// <returns></returns>
+        private int GetTotalCount(DataTable dt)
+        {
+            return dt.Rows.Count;
+        }
+
+        /// <summary>
+        /// 模拟数据库分页
+        /// </summary>
+        /// <returns></returns>
+        private DataTable GetPagedDataTable(int pageIndex, int pageSize, DataTable dt)
+        {
+            DataTable source = dt;
+
+            DataTable paged = source.Clone();
+
+            int rowbegin = pageIndex * pageSize;
+            int rowend = (pageIndex + 1) * pageSize;
+            if (rowend > source.Rows.Count)
+            {
+                rowend = source.Rows.Count;
+            }
+
+            for (int i = rowbegin; i < rowend; i++)
+            {
+                paged.ImportRow(source.Rows[i]);
+            }
+
+            return paged;
+        }
+
+        #endregion
+        #endregion
+
         protected void btnDelete_Click3(object sender, EventArgs e)
         {
           
@@ -122,10 +179,11 @@ namespace WHMS.Infor_Data
             {
                 DL2.ForceSelection = true;
                 string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID=" + Common.Sid;
-                DataTable dt = Common.datatable(sqlStr);
-                gridExample.DataSource = dt;
-                gridExample.DataBind();
-                count = OutPutSummaryData(dt);
+                //  DataTable dt = Common.datatable(sqlStr);
+                //  gridExample.DataSource = dt;
+                //  gridExample.DataBind();
+                BindGrid1(sqlStr);
+            //    count = OutPutSummaryData(dt);
                 hourcount.Text = "获得的总工时为："+count;
             }
             else

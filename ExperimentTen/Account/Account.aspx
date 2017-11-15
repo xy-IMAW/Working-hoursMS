@@ -18,9 +18,9 @@
                     <Toolbars>
                         <f:Toolbar ID="toolbar_01" runat="server">
                             <Items>
-                                <f:Button ID="btnAdd" Text="新增" Icon="Add" runat="server" OnClick="btnAdd_Click" >
+                                <f:Button ID="btnAdd" Text="新增" Icon="UserAdd" runat="server" OnClick="btnAdd_Click" >
                                 </f:Button>
-                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click">
+                                <f:Button ID="btnDelete" Text="删除" Icon="UserDelete" runat="server" OnClick="btnDelete_Click">
                                 </f:Button>
                                  <f:Button ID="Button1" EnableAjax="false" Icon="PageWhiteExcel" DisableControlBeforePostBack="false"  runat="server" Text="导出" OnClick="Button1_Click">
                                 </f:Button>

@@ -206,10 +206,6 @@ namespace WHMS.Infor_Data
         #endregion
         #endregion
 
-        #region 班级查询
-        //查询选中年级包含的班级
-       
-        #endregion
 
 
         #endregion

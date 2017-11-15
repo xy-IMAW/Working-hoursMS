@@ -6,6 +6,33 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
+            <style>
+                .mypanel {
+               
+        
+        }
+
+            .mypanel .mybutton {
+             display: inline-block;
+    padding: .3em .5em;
+  background: -webkit-linear-gradient(top,#42a4e0,#2e88c0);
+background: -moz-linear-gradient(top,#42a4e0,#2e88c0);
+background: linear-gradient(top,#42a4e0,#2e88c0);
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius: .3em;
+    box-shadow: 0 1px white inset;
+    text-align: center;
+    text-shadow: 0 1px 1px black;
+    color:white;
+    font-weight: bold;
+               width:100px;
+            }
+            .mybutton:active{
+                box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
+    border-color: rgba(0,0,0,.3);
+    background: #bbb;
+            }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -25,19 +52,15 @@
                     Layout="VBox" BoxConfigAlign="Stretch" BoxConfigPosition="Left" runat="server">
                     <Items>
                            <f:Panel ID="panel2" ShowBorder="false" ShowHeader="false" runat="server" >
-                            <Items>                              
-                             <f:Grid ID="Grid1" Height="650px" BoxFlex="1" ShowBorder="false" runat="server" ShowGridHeader="true"
-                                  DataKeyNames="Id,Name" EnableRowClickEvent="true" AllowPaging="true" PageSize="40" PageIndex="0" OnPageIndexChange="Grid1_PageIndexChange" EnableCollapse="true">
-                            <Toolbars >
+                                 <Toolbars >
                                 <f:Toolbar ID="toolbar1" runat="server">
                                     <Items>
-                                        <f:Button ID="btnSearch" Icon="Zoom" runat="server" Text="查看" ToolTip="查看选中学生的工时信息" OnClick="btnSearch_Click"></f:Button>
-                                        <f:Button ID="btnadd" Icon="Add" runat="server" Text="新增"></f:Button>
-                                         
-                                     
+                                        <f:Button ID="btnadd" Icon="Add" runat="server" Text="新增"></f:Button>                                                                             
                                         <f:Button ID="btnDelet" Icon="Delete" runat="server" Text="删除" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？" ConfirmTarget="Self" OnClick="btnDelet_Click"></f:Button>
                                         <f:TextBox ID="txtStuID" Label="学号" LabelAlign="Right" runat="server" Text=""></f:TextBox>
                                         <f:Button ID="btnStuSerach" Icon="Zoom" Text="查找" runat="server" OnClick="btnStuSerach_Click"></f:Button>
+                                        <f:Button ID="btnSearch" Icon="ApplicationViewList" runat="server" Text="查看工时" ToolTip="查看选中学生的工时信息" OnClick="btnSearch_Click"></f:Button>
+
                                     </Items>
              <%--                        <Items>
                                           
@@ -46,18 +69,26 @@
                                                   <asp:Button Text="下载学生模板" runat="server" OnClick="btnDownLoad_Click" />
                                             </f:CPHConnector>
                                         </f:ContentPanel>
+                  <f:Button ID="btnDownLoad" EnableAjax="false"  Icon="Zoom" runat="server" Text="下载模板" OnClick="btnDownLoad_Click"></f:Button>
                                     </Items>
                  --%>
                                 </f:Toolbar>
-                                <f:Toolbar runat="server">
+                                <f:Toolbar runat="server" >
                                     <Items>
                                            <f:Button ID="btnImport" Icon="PageGo" runat="server" Text="导入名单"></f:Button>
-                                        
-                                          <f:Button ID="btnDownLoad" EnableAjax="false"  Icon="Zoom" runat="server" Text="下载模板" OnClick="btnDownLoad_Click"></f:Button>
-                                    </Items>
-                                    
+                                            <f:ContentPanel runat="server">
+                                 <div class="mypanel">
+                                 <asp:Button ID="DowmLoad" Text="下载班级模板" runat="server" CssClass="mybutton" OnClick="btnDownLoad_Click"/>
+                                 </div>
+                             </f:ContentPanel>
+                                         
+                                    </Items>                                   
                                 </f:Toolbar>
                             </Toolbars>
+                            <Items>                              
+                             <f:Grid ID="Grid1" Height="550px" BoxFlex="1" ShowBorder="false" runat="server" ShowGridHeader="true"
+                                  DataKeyNames="Id,Name" EnableRowClickEvent="true" AllowPaging="true" PageSize="40" PageIndex="0" OnPageIndexChange="Grid1_PageIndexChange" EnableCollapse="false">
+                          
                                  <Columns>
                                 <f:TemplateField Width="60px">
                                     <ItemTemplate>
@@ -74,8 +105,7 @@
                      </f:Panel>
                          <f:Window ID="window1" Title="增加学生"  EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
             EnableResize="true" EnableClose="true" Target="Top" OnClose="window1_Close" IsModal="true" Width="550px" Height="450px" runat="server">
-        </f:Window>
-                        
+        </f:Window>                       
                         <f:Window ID="window3" Title="导入学生名单" EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
             EnableResize="true" EnableClose="true" Target="Top" OnClose="window3_Close" IsModal="true" Width="800px" Height="600px" runat="server"></f:Window>
                     </Items>           
