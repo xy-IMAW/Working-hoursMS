@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ClassData.aspx.cs" Inherits="WHMS.Infor_Data.ClassData" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ProgramData.aspx.cs" Inherits="WHMS.Infor_Data.ProgramData" %>
 
 <!DOCTYPE html>
 
@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-    <style>
+<  <style>
                 .mypanel {
             text-align: center;
             padding-top: 10px;

@@ -71,7 +71,8 @@
                             <Items>
                                 <f:DropDownList ID="DDL" runat="server" Label="学期" LabelAlign="Right" Width="180px" LabelWidth="50px"></f:DropDownList>
                                 <f:Button ID="btnSearch" Text="查看" Icon="Zoom" runat="server" OnClick="btnSearch_Click"></f:Button>                               
-                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click"></f:Button>                                                       
+                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click"></f:Button>    
+                                <f:Button runat="server" ID="btnSearch_hours" Text="查看工时" Icon="ApplicationViewList" OnClick="btnSearch_hours_Click"/>                                                   
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -97,6 +98,8 @@
                 </f:Grid>
             </Items>
         </f:Panel>
+             <f:Window ID="window1" Hidden="true" EnableIFrame="true" runat="server" EnableClose="true"  Width="800px" Height="600px" Target="Top"  EnableMaximize="true" ></f:Window>
+
                     </Items>
                 </f:Region>
             </Regions>

@@ -57,8 +57,14 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                         </f:Toolbar>
                         <f:Toolbar ID="tool2" runat="server"  >
                          <Items>
-                             <f:Button ID="btnDownLoad" Text="下载工时模板" Icon="Accept" runat="server" OnClick="btnDownLoad_Click" AbsoluteX="200px"></f:Button>
+                             <%-- 
+                             <f:Button ID="btnDownLoad" Text="下载工时模板" Icon="Accept" runat="server" OnClick="btnDownLoad_Click" AbsoluteX="200px"></f:Button>--%>
                               <f:Button ID="btnImport" Icon="PageGo" runat="server" Text="导入工时" />
+                              <f:ContentPanel runat="server">
+                                 <div class="mypanel">
+                                 <asp:Button ID="Button1" Text="下载工时模板" runat="server" CssClass="mybutton" OnClick="btnDownLoad_Click"/>
+                                 </div>
+                             </f:ContentPanel>
                          </Items>
                             
                      </f:Toolbar>  

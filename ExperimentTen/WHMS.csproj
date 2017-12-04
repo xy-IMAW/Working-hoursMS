@@ -3397,6 +3397,7 @@
     <Content Include="Infor-Data\GradeData.aspx" />
     <Content Include="Infor-Data\HoursImport.aspx" />
     <Content Include="Infor-Data\Infor.aspx" />
+    <Content Include="Infor-Data\ProgramData.aspx" />
     <Content Include="Infor-Data\StuInfor.aspx" />
     <Content Include="Infor-Data\Program.aspx" />
     <Content Include="Infor-Data\StuImport.aspx" />
@@ -5150,8 +5151,8 @@
     <Content Include="res\icon\zoom.png" />
     <Content Include="res\icon\zoom_in.png" />
     <Content Include="res\icon\zoom_out.png" />
-    <Content Include="ShowEditDelete.aspx" />
-    <Content Include="test.aspx" />
+    <Content Include="ClassData\_ClassData.aspx" />
+    <Content Include="ClassData\test.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -5251,6 +5252,13 @@
     <Compile Include="Infor-Data\Infor.aspx.designer.cs">
       <DependentUpon>Infor.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Infor-Data\ProgramData.aspx.cs">
+      <DependentUpon>ProgramData.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Infor-Data\ProgramData.aspx.designer.cs">
+      <DependentUpon>ProgramData.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Infor-Data\StuInfor.aspx.cs">
       <DependentUpon>StuInfor.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5280,18 +5288,18 @@
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowEditDelete.aspx.cs">
-      <DependentUpon>ShowEditDelete.aspx</DependentUpon>
+    <Compile Include="ClassData\_ClassData.aspx.cs">
+      <DependentUpon>_ClassData.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ShowEditDelete.aspx.designer.cs">
-      <DependentUpon>ShowEditDelete.aspx</DependentUpon>
+    <Compile Include="ClassData\_ClassData.aspx.designer.cs">
+      <DependentUpon>_ClassData.aspx</DependentUpon>
     </Compile>
-    <Compile Include="test.aspx.cs">
+    <Compile Include="ClassData\test.aspx.cs">
       <DependentUpon>test.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="test.aspx.designer.cs">
+    <Compile Include="ClassData\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
   </ItemGroup>

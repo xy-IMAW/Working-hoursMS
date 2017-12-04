@@ -19,11 +19,14 @@ namespace WHMS
              //   btnPasswordUpdate.OnClientClick = window1.GetShowReference("Account/PasswordUpdate.aspx", "修改密码");
                 if (Common.State != "超级管理员")
                 {
+                    getClass();//获取管理员班级
                     HandlerName();
                     handler.Text = Common.Name;
+                  
                 }
                 else
                 {
+                    grid.Hidden = false;
                     handler.Text = "超级管理员/Administrator";
                 }
                 #endregion
@@ -72,7 +75,10 @@ namespace WHMS
             icon = Icon.Group;
             node5.Icon = icon;
 
-
+            node6.Text = "班级工时查询";
+            node6.NavigateUrl = "~/ClassData/_ClassData.aspx";
+            icon = Icon.Group;
+            node6.Icon = icon;
 
             if (Common.State == "超级管理员")
             {
@@ -137,6 +143,13 @@ namespace WHMS
         protected void gridview_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
         {
             grid.PageIndex = e.NewPageIndex;
+        }
+
+        protected void getClass()
+        {
+            string sql = "select Class from Student where StuID='"+Common.ID+"'";
+            DataTable dt = Common.datatable(sql);
+            Common.Class = dt.Rows[0][0].ToString();
         }
     }
 }

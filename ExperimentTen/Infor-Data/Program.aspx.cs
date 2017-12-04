@@ -22,6 +22,8 @@ namespace WHMS.Infor_Data
         //学期绑定到两个下拉框
         public void BindDDL()
         {
+
+            #region 添加活动的日期下拉框
             int year = DateTime.Now.Year;
             int year2 = DateTime.Now.Year + 1;
             if (DateTime.Now.Month < 9)
@@ -31,20 +33,16 @@ namespace WHMS.Infor_Data
                 for (int i = 1; i < 5; i++)
                 {
                     ListItem li = new ListItem();
-                    li.Text = li.Value =(--year).ToString() + "-" + (--year2).ToString();
-                    DDL.Items.Add(li);
+                    li.Text = li.Value =(--year).ToString() + "-" + (--year2).ToString();              
                     selectSy.Items.Add(li);
                 }
             }
             else
-            {
-              
-
+            {              
                 for (int i = 1; i < 5; i++)
                 {
                     ListItem li = new ListItem();
-                    li.Text = li.Value = (year--).ToString() + "-" + (year2--).ToString();
-                    DDL.Items.Add(li);
+                    li.Text = li.Value = (year--).ToString() + "-" + (year2--).ToString();             
                     selectSy.Items.Add(li);
                 }
             }
@@ -54,7 +52,50 @@ namespace WHMS.Infor_Data
             list2.Add("2");
             selectSe.DataSource = list2;
             selectSe.DataBind();
+            #endregion
 
+            #region 查询活动的日期下拉框
+            //学期绑定。九月为分界
+            year = DateTime.Now.Year;
+            year2 = DateTime.Now.Year + 1;
+            if (DateTime.Now.Month < 9)
+            {
+                List<string> list = new List<string>();
+
+                for (int i = 1; i < 5; i++)
+                {
+                    string y1 = (--year).ToString();
+                    string y2 = (--year2).ToString();
+
+                    FineUI.ListItem li = new FineUI.ListItem();
+                    li.Text = li.Value = (y1).ToString() + "-" + (y2).ToString() + "-1";
+                    DDL.Items.Add(li);
+
+                    li = new FineUI.ListItem();
+                    li.Text = li.Value = (y1).ToString() + "-" + (y2).ToString() + "-2";
+                    DDL.Items.Add(li);
+                }
+            }
+            else
+            {
+                List<string> list = new List<string>();
+
+                for (int i = 1; i < 5; i++)
+                {
+                    string y1 = (year--).ToString();
+                    string y2 = (year2--).ToString();
+
+                    FineUI.ListItem li = new FineUI.ListItem();
+                    li.Text = li.Value = (y1).ToString() + "-" + (y2).ToString() + "-1";
+                    DDL.Items.Add(li);
+
+                    li = new FineUI.ListItem();
+                    li.Text = li.Value = (y1).ToString() + "-" + (y2).ToString() + "-2";
+                    DDL.Items.Add(li);
+                }
+            }
+
+            #endregion
         }
         //活动总表数据绑定，活动下拉框数据
         protected void bind()
@@ -195,5 +236,19 @@ namespace WHMS.Infor_Data
             Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
         }
         #endregion
+
+        protected void btnSearch_hours_Click(object sender, EventArgs e)
+        {
+            if (gridExample.SelectedRowIndex < 0)
+            {
+                Alert.Show("请选择要查看的活动", MessageBoxIcon.Error);
+            }
+            else
+            {
+                Common.Program = gridExample.SelectedRow.Values[1].ToString();
+                Common.SySe = DDL.SelectedItem.ToString();
+                PageContext.RegisterStartupScript(window1.GetShowReference("ProgramData.aspx"));
+            }
+        }
     }
 }

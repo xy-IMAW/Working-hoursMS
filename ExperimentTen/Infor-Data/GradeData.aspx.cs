@@ -170,10 +170,6 @@ namespace WHMS.Infor_Data
             }
         }
 
-       /* public override void VerifyRenderingInServerForm(System.Web.UI.Control control)
-        {
-        }
-*/
         protected void Button2_Click(object sender, EventArgs e)
         {
 

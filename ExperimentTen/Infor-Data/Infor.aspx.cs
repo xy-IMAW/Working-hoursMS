@@ -38,23 +38,28 @@ namespace WHMS.Infor_Data
         //年级与班级树
         public void bind()
         {
-
-            DataTable table = CreateDataTable();
-            DataSet ds = new DataSet();
-            ds.Tables.Add(table);
-            ds.Relations.Add("TreeRelation", ds.Tables[0].Columns["ID"], ds.Tables[0].Columns["ParentID"]);
-
-            foreach (DataRow row in ds.Tables[0].Rows)
+            try
             {
-                if (row.IsNull("ParentID"))
+                DataTable table = CreateDataTable();
+                DataSet ds = new DataSet();
+                ds.Tables.Add(table);
+                ds.Relations.Add("TreeRelation", ds.Tables[0].Columns["ID"], ds.Tables[0].Columns["ParentID"]);
+
+                foreach (DataRow row in ds.Tables[0].Rows)
                 {
-                    TreeNode node = new TreeNode();
-                    node.Text = row["text"].ToString();//数据源的数据绑定到节点上
-                    node.Expanded = true;
-                    Tree1.Nodes.Add(node);//添加到树
-        
-                    ResolveSubTree(row, node);//子节点绑定到父节点上
+                    if (row.IsNull("ParentID"))
+                    {
+                        TreeNode node = new TreeNode();
+                        node.Text = row["text"].ToString();//数据源的数据绑定到节点上
+                        node.Expanded = true;
+                        Tree1.Nodes.Add(node);//添加到树
+
+                        ResolveSubTree(row, node);//子节点绑定到父节点上
+                    }
                 }
+            }
+            catch {
+                Alert.Show("年级班级表出现错误！");
             }
         }
 
@@ -218,7 +223,9 @@ namespace WHMS.Infor_Data
             if (Grid1.SelectedRow.Values[1].ToString() != null)
             {
                 Common.Sid = Grid1.SelectedRow.Values[1].ToString();
-                Response.Redirect("Data.aspx");
+                window1.Title = "工时信息";
+                PageContext.RegisterStartupScript(window1.GetShowReference("Data.aspx"));
+              //  Response.Redirect("Data.aspx");
             }
         }
         // 窗体关闭时刷新页面
@@ -227,9 +234,9 @@ namespace WHMS.Infor_Data
 
             Grid1.Visible = true;
             //GridClass.Visible = false;
-            //   grade = Tree1.Nodes[0].Nodes[0].Text;
+             grade = Tree1.Nodes[0].Nodes[0].Text;
 
-            string SqlStr = "select StuID,StuName,Class,Grade from Student where Grade= " + grade + "order by Class,StuID";
+            string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
             BindGrid1(SqlStr);
         }
 
@@ -239,14 +246,14 @@ namespace WHMS.Infor_Data
             if (e.Node.Leaf != true)//有子节点则Leaf为false,没有为true
             {
                 grade = e.Node.Text;//查找年级
-                string SqlStr = "select StuID,StuName,Class,Grade from Student where Grade= '" + grade + "' order by Class,StuID";
+                string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= '" + grade + "' order by Class,StuID";
                 BindGrid1(SqlStr);
           
             }
             else
             {
                 Class1 = e.Node.Text;//查找班级
-                string SqlStr = "select StuID,StuName,Class,Grade from Student where Class= '" + Class1 + "' order by StuID";
+                string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Class= '" + Class1 + "' order by StuID";
                 BindGrid1(SqlStr);
              
             }
@@ -268,7 +275,7 @@ namespace WHMS.Infor_Data
 
                 //   grade = Tree1.Nodes[0].Nodes[0].Text;
 
-                string SqlStr = "select StuID,StuName,Class,Grade from Student where Grade= " + grade + "order by Class,StuID";
+                string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
                 BindGrid1(SqlStr);
 
                 Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
@@ -278,12 +285,11 @@ namespace WHMS.Infor_Data
         //查找个人信息
         protected void btnStuSerach_Click(object sender, EventArgs e)
         {
-            string SqlStr = "select StuID,StuName,Class,Grade from Student where StuID= '" + txtStuID.Text + "'";
+            string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where StuID= '" + txtStuID.Text + "'";
             BindGrid1(SqlStr);
         }
-        //删除一条班级记录
-      
-        #endregion
+
+
         //页面编号处理
         protected void Grid1_PageIndexChange(object sender, GridPageEventArgs e)
         {
@@ -292,12 +298,19 @@ namespace WHMS.Infor_Data
 
         protected void window3_Close(object sender, WindowCloseEventArgs e)
         {
-            grade = Tree1.SelectedNode.Text;
-            string SqlStr = "select StuID,StuName,Class,Grade from Student where Grade= " + grade + "order by Class,StuID";
-            BindGrid1(SqlStr);
+            try
+            {
+                grade = Tree1.SelectedNode.Text;
+                string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
+                BindGrid1(SqlStr);
+            }
+            catch
+            {
+                Alert.Show("年级班级表出现错误！");
+            }
         }
 
-     
+
 
         protected void Tree1_Expand(object sender, EventArgs e)
         {
@@ -307,28 +320,11 @@ namespace WHMS.Infor_Data
         protected void btnDownLoad_Click(object sender, EventArgs e)
         {
             string FN = "Student.xls";//模板名
-           NPOI_EXCEL.DownLoad(FN);
-            Page_Load(sender,e);
-/*
-            string fileName = FN;//客户端保存的文件名
-                                 //  string filePath = Server.MapPath("~/ExperimentTen/res/DownLoad/muban.xls");//路径
-            string filePath = HttpContext.Current.Server.MapPath("~/ExperimentTen/res/DownLoad/" + fileName);//路径
+            NPOI_EXCEL.DownLoad(FN);
+            Page_Load(sender, e);
 
-            //以字符流的形式下载文件
-            System.IO.FileStream fs = new System.IO.FileStream(filePath, FileMode.Open);
-            byte[] bytes = new byte[(int)fs.Length];
-            fs.Read(bytes, 0, bytes.Length);
-            fs.Close();
-            //  Response.ContentType = "application/octet-stream";
-            HttpContext.Current.Response.ContentType = "application/excel";
-
-            //通知浏览器下载文件而不是打开
-            HttpContext.Current.Response.AddHeader("Content-Disposition", "attachment;  filename=" + HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-            HttpContext.Current.Response.BinaryWrite(bytes);
-            HttpContext.Current.Response.Flush();
-            HttpContext.Current.Response.End();
-
-        */    
         }
+        #endregion
+
     }
 }

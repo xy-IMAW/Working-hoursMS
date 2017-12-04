@@ -4,27 +4,21 @@ using System.Data;
 
 namespace WHMS.Infor_Data
 {
-    public partial class ClassData : System.Web.UI.Page
+    public partial class ProgramData : System.Web.UI.Page
     {
-       
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
-            {
-                BindGrid(GridView1);
-                GridView1.Caption = Common.Class + "班" + Common.SySe + "学期工时表";
-            }        
+            BindGrid(GridView1);
         }
- 
 
         public void Bind(DataTable data)
         {
             // DataTable data = new DataTable();
             DataRow dr;
 
-            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%' and Program='"+Common.Program+"'";
             string sql2 = "select StuID,StuName,Class from Student where Class='" + Common.Class + "' order by StuID";
-            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%' and Program='" + Common.Program + "'";
             DataTable dt = Common.datatable(sql1);
             DataTable student = Common.datatable(sql2);
             DataTable program = Common.datatable(sql3);
@@ -38,7 +32,7 @@ namespace WHMS.Infor_Data
 
                 if (i < program.Rows.Count)
                 {
-                   
+
                     data.Columns.Add(program.Rows[i][0].ToString(), typeof(string));
                 }
 
@@ -125,11 +119,11 @@ namespace WHMS.Infor_Data
 
             DataTable data = new DataTable();
             Bind(data);
-            //dt：数据源  
+            //data：数据源  
             GridView1.DataSource = data;
             GridView1.DataBind();
 
-         //   output(GridView1);
+            //   output(GridView1);
         }
 
 
@@ -137,9 +131,8 @@ namespace WHMS.Infor_Data
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%' and Program='" + Common.Program + "'";
                 DataTable program = Common.datatable(sql3);
-
                 TableCellCollection header = e.Row.Cells;
 
                 header.Clear();
@@ -173,16 +166,13 @@ namespace WHMS.Infor_Data
 
 
         protected void Button2_Click(object sender, EventArgs e)
-        {      
+        {
+
+
             DataTable dt = new DataTable();
             Bind(dt);
-         //   NPOItest.Batch_Update(dt);
-                NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption);
+            //   NPOItest.Batch_Update(dt);
+            NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption);
         }
-
-
-     
-
-    
     }
 }

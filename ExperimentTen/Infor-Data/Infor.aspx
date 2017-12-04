@@ -99,6 +99,9 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                                 <f:BoundField Width="100px"  DataField="StuName" HeaderText="姓名" TextAlign="Center" />
                                 <f:BoundField Width ="100px" DataField="Class" HeaderText="班级" TextAlign="Center" />
                                 <f:BoundField Width="100px"  DataField="Grade" HeaderText="年级" TextAlign="Center" />
+                                <f:BoundField Width="100px"  DataField="Sex" HeaderText="性别" TextAlign="Center" />
+                                <f:BoundField Width="100px"  DataField="Other" HeaderText="备注" TextAlign="Center" />
+
                             </Columns>
                         </f:Grid>                     
                        </Items>

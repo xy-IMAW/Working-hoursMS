@@ -10,58 +10,79 @@ namespace WHMS
     public class DataControl
     {
         #region 数据操作
-    
+
+        #region 插入班级（不删除原数据）
+        /*
+            public static void UpdataClass(Grid grid)
+            {
+                bool NoRepeat = true;
+                int flag = 0;
+                int flag2 = 0;
+                string Class;
+                string Grade;
+                for (int i = 0; i < grid.Rows.Count; i++)
+                {
+                    Grade = grid.Rows[i].Values[0].ToString();
+                    Class = grid.Rows[i].Values[1].ToString();
+
+                    string sqlstr1 = "select Class from Class";
+                    Common.Open();
+                    SqlDataReader re = Common.ExecuteRead(sqlstr1);
+                    while (re.Read())
+                    {
+                        string class1 = re.GetString(re.GetOrdinal("Class"));
+                        if (class1 == Class)
+                        {
+                            NoRepeat = false;
+                            flag++;//重复次数
+                            break;
+                        }
+                        NoRepeat = true;
+                    }
+                    Common.close();
+                    //未重复才添加
+                    if (NoRepeat)
+                    {
+
+                        string sqlstr = "insert into Class (Class,Grade) values ('" + Class + "','" + Grade + "')";//插入新数据
+                        Common.ExecuteSql(sqlstr);
+                        flag2++;
+                    }
+
+                }
+                if (flag == 0)
+                {
+                    Alert.Show("添加成功！\r\n已添加" + flag2.ToString() + "条记录！", "提示", FineUI.MessageBoxIcon.Information);
+                }
+                else
+                {
+                    Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录重复", "提示", FineUI.MessageBoxIcon.Information);
+
+                }
+            }
+            */
+        #endregion
+
+        //班级更新--覆盖班级名称
         public static void UpdataClass(Grid grid)
         {
-            bool NoRepeat = true;
-            int flag = 0;
-            int flag2 = 0;
             string Class;
             string Grade;
+            Grade = grid.Rows[0].Values[0].ToString();
+            string sql = "delete from Class where Grade='" + Grade + "'";//删除同年级的班级
+            Common.ExecuteSql(sql);
+
             for (int i = 0; i < grid.Rows.Count; i++)
             {
                 Grade = grid.Rows[i].Values[0].ToString();
                 Class = grid.Rows[i].Values[1].ToString();
-               
-                string sqlstr1 = "select Class from Class";
-                Common.Open();
-                SqlDataReader re = Common.ExecuteRead(sqlstr1);
-                while (re.Read())
-                {
-                    string class1 = re.GetString(re.GetOrdinal("Class"));
-                    if (class1 == Class)
-                    {
-                        NoRepeat = false;
-                        flag++;//重复次数
-                        break;
-                    }
-                    NoRepeat = true;
-                }
-                Common.close();
-                //未重复才添加
-                if (NoRepeat)
-                {
 
-                    string sqlstr = "insert into Class (Class,Grade) values ('" + Class + "','" + Grade + "')";//插入新数据
-                    Common.ExecuteSql(sqlstr);
-                    flag2++;
-                }
+                string sqlstr = "insert into Class (Class,Grade) values ('" + Class + "','" + Grade + "')";//插入新数据
+                Common.ExecuteSql(sqlstr);
 
             }
-            if (flag == 0)
-            {
-                Alert.Show("添加成功！\r\n已添加" + flag2.ToString() + "条记录！", "提示", FineUI.MessageBoxIcon.Information);
-            }
-            else
-            {
-                Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录重复", "提示", FineUI.MessageBoxIcon.Information);
-
-            }
-
-
         }
- 
-  
+        //学生表更新--存在的更新，不存在的插入
         public static void UpdataStudent(Grid grid)
         {
             bool NoRepeat = true;
@@ -70,13 +91,17 @@ namespace WHMS
             string StuID;
             string StuName;
             string Class;
+            string Sex;
+            string Other;
             for (int i = 0; i < grid.Rows.Count; i++)
             {
                
                 StuID = grid.Rows[i].Values[0].ToString();
                StuName = grid.Rows[i].Values[1].ToString();
                 Class = grid.Rows[i].Values[2].ToString();
-             
+                Sex= grid.Rows[i].Values[4].ToString();
+                Other= grid.Rows[i].Values[5].ToString();
+
                 string sqlstr1 = "select StuID from Student";
                 Common.Open();
                 SqlDataReader re = Common.ExecuteRead(sqlstr1);
@@ -85,6 +110,7 @@ namespace WHMS
                     string id = re.GetString(re.GetOrdinal("StuID"));
                     if (id == StuID)
                     {
+                        string sqlstr = "update Student set StuName='"+StuName+"',Class='"+Class+"',Sex='"+Sex+"',Other='"+Other+"'";//更新数据
                         NoRepeat = false;
                         flag++;//重复次数
                         break;
@@ -95,8 +121,7 @@ namespace WHMS
                 //未重复才添加
                 if (NoRepeat)
                 {
-
-                    string sqlstr = "insert into Student (StuID,StuName,Class) values ('" + StuID + "','" + StuName + "','" + Class+ "')";//插入新数据
+                    string sqlstr = "insert into Student (StuID,StuName,Class,Sex,Other) values ('" + StuID + "','" + StuName + "','" + Class+"','" +Sex+"','"+Other+"')";//插入新数据
                     Common.ExecuteSql(sqlstr);
                     flag2++;
                 }
@@ -108,12 +133,12 @@ namespace WHMS
             }
             else
             {
-                Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录重复", "提示", FineUI.MessageBoxIcon.Information);
+                Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录已更新", "提示", FineUI.MessageBoxIcon.Information);
 
             }
         }
 
-
+        //工时表更新
         public static void UpdataWorking_hours(Grid grid)
         {
             bool NoRepeat = true;

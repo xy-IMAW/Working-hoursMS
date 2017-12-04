@@ -222,7 +222,7 @@
                                                 </f:Region>
                                                 <f:Region runat="server" ShowBorder="false">
                                                     <Items>
-                                                           <f:Grid runat="server" ID="grid" ShowBorder="false" RegionPosition="Center">
+                                                           <f:Grid runat="server" ID="grid" ShowBorder="false" RegionPosition="Center" Hidden="true">
                                                             <Columns>
                                                                 <f:TemplateField HeaderText="序号">
                                                                     <ItemTemplate>
