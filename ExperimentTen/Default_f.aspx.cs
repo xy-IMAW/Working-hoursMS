@@ -15,13 +15,14 @@ namespace WHMS
                 Common.Sid = "";
                 #region 
               
-                Common.checklogin("/login.aspx");
+              //  Common.checklogin("/login.aspx");
+                SessionManager.CheckLogin("/login.aspx");
              //   btnPasswordUpdate.OnClientClick = window1.GetShowReference("Account/PasswordUpdate.aspx", "修改密码");
-                if (Common.State != "超级管理员")
+                if (Session["State"].ToString() != "超级管理员")
                 {
                     getClass();//获取管理员班级
                     HandlerName();
-                    handler.Text = Common.Name;
+                    handler.Text = Session["Name"].ToString();
                   
                 }
                 else
@@ -80,7 +81,7 @@ namespace WHMS
             icon = Icon.Group;
             node6.Icon = icon;
 
-            if (Common.State == "超级管理员")
+            if (Convert.ToString(Session["State"]) == "超级管理员")
             {
                
                 leftMenuTree.Nodes.Add(node1);
@@ -92,7 +93,7 @@ namespace WHMS
 
                 // leftMenuTree.Nodes[0].Nodes[2].NavigateUrl = "~/Account/Account.aspx";
             }
-            else if (Common.State == "管理员")
+            else if (Convert.ToString(Session["State"]) == "管理员")
             {
          
 
@@ -117,16 +118,17 @@ namespace WHMS
 
         protected void btnPasswordUpdate_Click(object sender, EventArgs e)
         {
-            //  window1.GetShowReference("../Account/PasswordUpdate","修改密码");
+              window1.GetShowReference("../Account/PasswordUpdate","修改密码");
         }
         protected void HandlerName()
         {
-            string sqlstr = "select StuName from Student where StuID="+Common.ID;
+            string sqlstr = "select StuName from Student where StuID="+Session["ID"];
             Common.Open();
             SqlDataReader re = Common.ExecuteRead(sqlstr);
             if (re.Read())
             {
-                Common.Name = re.GetString(re.GetOrdinal("StuName"));
+                Session["Name"]= re.GetString(re.GetOrdinal("StuName"));
+              //  Common.Name = re.GetString(re.GetOrdinal("StuName"));
             }
             Common.close();
         }
@@ -147,9 +149,10 @@ namespace WHMS
 
         protected void getClass()
         {
-            string sql = "select Class from Student where StuID='"+Common.ID+"'";
+            string sql = "select Class from Student where StuID='"+Session["ID"]+"'";
             DataTable dt = Common.datatable(sql);
-            Common.Class = dt.Rows[0][0].ToString();
+            Session["Class"] = dt.Rows[0][0].ToString();
+         //   Common.Class = dt.Rows[0][0].ToString();
         }
     }
 }

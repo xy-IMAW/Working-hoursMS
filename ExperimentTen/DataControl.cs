@@ -110,7 +110,9 @@ namespace WHMS
                     string id = re.GetString(re.GetOrdinal("StuID"));
                     if (id == StuID)
                     {
-                        string sqlstr = "update Student set StuName='"+StuName+"',Class='"+Class+"',Sex='"+Sex+"',Other='"+Other+"'";//更新数据
+                        Common.close();
+                        string sqlstr = "update Student set StuName='"+StuName+"',Class='"+Class+"',Sex='"+Sex+"',Other='"+Other+"' where StuID='"+StuID+"'";//更新数据
+                        Common.ExecuteSql(sqlstr);
                         NoRepeat = false;
                         flag++;//重复次数
                         break;

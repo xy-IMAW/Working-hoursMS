@@ -14,8 +14,8 @@ namespace WHMS.Account
         {
             if(!IsPostBack)
            {
-                Common.checklogin("../login.aspx");
-             
+             //   Common.checklogin("../login.aspx");
+                SessionManager.CheckLogin("../login.aspx");
                 Bind1();
                 btnAdd.OnClientClick = window1.GetShowReference("AccountAdd.aspx","添加管理员");
                 

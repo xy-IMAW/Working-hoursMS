@@ -105,7 +105,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                                     </ItemTemplate>
                                 </f:TemplateField>
                                 <f:BoundField Width="100px"  DataField="Grade" HeaderText="年级" TextAlign="Center" />
-                                <f:BoundField Width ="100px" DataField="Class" HeaderText="班级" TextAlign="Center" />                              
+                                <f:BoundField Width ="150px" DataField="Class" HeaderText="班级" TextAlign="Center" />                              
                             </Columns>
                   </f:Grid>    
             </Items>                   

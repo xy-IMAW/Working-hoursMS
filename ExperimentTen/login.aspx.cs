@@ -15,27 +15,21 @@ namespace WHMS
         {
             Common.close();//确保数据库连接关闭
                            //重置所有关键字符的值
-            Common.State = "";
-            Common.ID = "";
-            Common.Name = "";
-            Common.Sid = "";
-            if (Common.IsLogin)
+            //if (Common.IsLogin)
+            //{
+            //    Alert.Show("请正常登录！", "警告", MessageBoxIcon.Warning);
+            //}
+            if (Convert.ToString( Session["IsLogin"])=="false")
             {
                 Alert.Show("请正常登录！", "警告", MessageBoxIcon.Warning);
             }
+
         }
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            string sqlstr = "select State from Account where StuID = '" + tbxStuID.Text + "'";
-            Common.Open();
-            SqlDataReader re = Common.ExecuteRead(sqlstr);
-            if (re.Read())
-            {
-                Common.State = re.GetString(re.GetOrdinal("State"));
-            }
-            Common.close();
-
+            string id = tbxStuID.Text;
+            
             string sqlStr = "select * from Account where StuID='" + tbxStuID.Text + "'";
             Common.Open();
             SqlDataReader reader = Common.ExecuteRead(sqlStr);
@@ -43,33 +37,33 @@ namespace WHMS
             {
                 string dbpassword = reader.GetString(reader.GetOrdinal("Password"));
                 if (tbxPassword.Text == dbpassword)
-                {
-                   
+                {                  
                     Alert.ShowInTop("成功登录！", "提示", MessageBoxIcon.Information);
                     Common.close();
-                    Common.ID = tbxStuID.Text;//绑定登陆者ID
+               //     Common.ID = tbxStuID.Text;//绑定登陆者ID
+                    Session["ID"] = tbxStuID.Text;//设置登录者idsession
+                    SessionManager.setState(id);//设置登录者State Session
                     Account_Login();
                     Response.Redirect("Default_f.aspx");
                 }
                 else
                 {
-                    Common.close();
-            
-                           Alert.ShowInTop("用户名或密码错误！", "错误", MessageBoxIcon.Error);
+                    Common.close();          
+                    Alert.ShowInTop("用户名或密码错误！", "错误", MessageBoxIcon.Error);
                 }
             }
             else
             {
 
-                    Alert.ShowInTop("输入的用户名不存在！", "错误", MessageBoxIcon.Error);
+                Alert.ShowInTop("输入的用户名不存在！", "错误", MessageBoxIcon.Error);
                 Common.close();
             }
         }
 
         public void Account_Login()
         {
-            DateTime date = System.DateTime.Now;
-            string sql = "insert into Login (StuID,Date) values ('" + Common.ID + "','" + date + "')";
+            DateTime date = System.DateTime.Now;        
+            string sql = "insert into Login (StuID,Date) values ('" + Session["ID"].ToString() + "','" + date + "')";
             Common.ExecuteSql(sql);
         }
     }

@@ -17,15 +17,14 @@ namespace WHMS.Infor_Data
         {
             if (!IsPostBack)
             {
-                Common.checklogin("../login.aspx");
-                Common.Sid = "";
+                SessionManager.CheckLogin("../login.aspx");
+               Session["Sid"] = "";
                 grade = "";
                 Class1 = "";
               
                 bind();
                 btnSearch.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择要查看的学号","警告",MessageBoxIcon.Warning);
-                btnadd.OnClientClick = window1.GetShowReference("AddStu.aspx","添加学生");
-            
+                btnadd.OnClientClick = window1.GetShowReference("AddStu.aspx","添加学生");           
                 btnImport.OnClientClick = window3.GetShowReference("StuImport.aspx","导入学生名单");
             }
       
@@ -222,20 +221,16 @@ namespace WHMS.Infor_Data
         {
             if (Grid1.SelectedRow.Values[1].ToString() != null)
             {
-                Common.Sid = Grid1.SelectedRow.Values[1].ToString();
-                window1.Title = "工时信息";
+                Session["Sid"] = Grid1.SelectedRow.Values[1].ToString();
+                window1.Title = "工时信息";               
                 PageContext.RegisterStartupScript(window1.GetShowReference("Data.aspx"));
               //  Response.Redirect("Data.aspx");
             }
         }
         // 窗体关闭时刷新页面
         protected void window1_Close(object sender, WindowCloseEventArgs e)
-        {
-
-            Grid1.Visible = true;
-            //GridClass.Visible = false;
+        {                   
              grade = Tree1.Nodes[0].Nodes[0].Text;
-
             string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
             BindGrid1(SqlStr);
         }
@@ -300,7 +295,7 @@ namespace WHMS.Infor_Data
         {
             try
             {
-                grade = Tree1.SelectedNode.Text;
+                grade = Tree1.Nodes[0].Nodes[0].Text;
                 string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
                 BindGrid1(SqlStr);
             }

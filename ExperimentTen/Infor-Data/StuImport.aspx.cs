@@ -10,7 +10,7 @@ namespace WHMS.Infor_Data
         {
             if (!IsPostBack)
             {
-              //  Common.checklogin("../login.aspx");
+                SessionManager.CheckLogin("../login.aspx");
 
             }
         }

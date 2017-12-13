@@ -22,10 +22,12 @@ namespace WHMS.ClassData
             if (!IsPostBack)
             {
                 bind();
-                lab.Text = Common.Class+"工时查询";             
+                lab.Text = Common.Class+"工时查询";
+                stuBind();         
             }
         }
 
+        //日期下拉框数据绑定
       public  void bind()
         {
          int   year = DateTime.Now.Year;
@@ -69,10 +71,13 @@ namespace WHMS.ClassData
             DL1.SelectedIndex = 0;
         }
 
+        //班级信息
         public void stuBind()
         {
             string sql = "select * from Student where Class ='"+Common.Class+"'";
-            Common.ExecuteSql(sql);
+            DataTable dt = Common.datatable(sql);
+            Grid1.DataSource = dt;
+            Grid1.DataBind();
         }
 
         protected void btn_Click(object sender, EventArgs e)
@@ -84,7 +89,7 @@ namespace WHMS.ClassData
             else
             {
                 Common.SySe = DL1.SelectedText.ToString();
-                PageContext.RegisterStartupScript(window1.GetShowReference("ClassData.aspx"));
+                PageContext.RegisterStartupScript(window1.GetShowReference("~/Infor-Data/ClassData.aspx"));
             }
         }
 

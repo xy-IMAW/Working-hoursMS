@@ -11,8 +11,9 @@ namespace WHMS.Infor_Data
         {
             if (!IsPostBack)
             {
+                SessionManager.CheckLogin("../login.aspx");
                 BindGrid(GridView1);
-                GridView1.Caption = Common.Class + "班" + Common.SySe + "学期工时表";
+                GridView1.Caption = Session["Class"].ToString() + "班\t" + Session["SySe"].ToString() + "学期工时表";
             }        
         }
  
@@ -22,9 +23,9 @@ namespace WHMS.Infor_Data
             // DataTable data = new DataTable();
             DataRow dr;
 
-            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
-            string sql2 = "select StuID,StuName,Class from Student where Class='" + Common.Class + "' order by StuID";
-            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Session["SySe"].ToString() + "%'";
+            string sql2 = "select StuID,StuName,Class from Student where Class like '%" + Session["Class"].ToString() + "%' order by StuID";
+            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Session["SySe"].ToString() + "%'";
             DataTable dt = Common.datatable(sql1);
             DataTable student = Common.datatable(sql2);
             DataTable program = Common.datatable(sql3);
@@ -47,16 +48,6 @@ namespace WHMS.Infor_Data
                     data.Columns.Add("合计", typeof(int));
                 }
             }
-            //构建活动行
-            /*     dr = data.NewRow();
-                 for (int i=0;i<program.Rows.Count;i++)
-                 {
-
-                     dr[i] = program.Rows[i][0].ToString();
-                 }
-                 data.Rows.Add(dr);
-     */
-
             for (int i = 0; i < student.Rows.Count; i++)
             {
                 dr = data.NewRow();
@@ -137,7 +128,7 @@ namespace WHMS.Infor_Data
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Session["SySe"].ToString() + "%'";
                 DataTable program = Common.datatable(sql3);
 
                 TableCellCollection header = e.Row.Cells;

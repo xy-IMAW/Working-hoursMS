@@ -8,11 +8,15 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using FineUI;
+using System.Web.SessionState;
+using System.Text;
 
 namespace WHMS
 {
     public class Common
     {
+      
+
         #region common string
         private static string state;//管理员性质
         public static string State
@@ -109,6 +113,7 @@ namespace WHMS
             }
             catch (Exception e)
             {
+                Alert.Show(e.Message);
                 throw e;
              //   throw new Exception(e.Message);
             }
@@ -165,6 +170,7 @@ namespace WHMS
             }
             catch (Exception e)
             {
+                Alert.Show("数据库错误："+e.Message);
                 throw e;
                // throw new Exception(e.Message);
             }
@@ -213,6 +219,47 @@ namespace WHMS
             if (conn.State == System.Data.ConnectionState.Open)
                 conn.Close();
         }
+        #endregion
     }
-    #endregion
+
+
+
+
+    public class SessionManager {
+        
+        
+        public static void CheckLogin(string url) {
+            if (Convert.ToString(System.Web.HttpContext.Current.Session["State"]) != "")//state为空说明未进行正常登录操作
+            {
+                System.Web.HttpContext.Current.Session["IsLogin"] = "true";//正常登录后设置IsLogin为true说明是登登录无异常
+            }
+            else
+            {
+                System.Web.HttpContext.Current.Session["IsLogin"] = "false";//登录异常IsLogin设为false
+                System.Web.HttpContext.Current.Response.Redirect(url);//并返回登录页面
+            }
+
+        }
+        public static void setState(string id) {
+            try
+            {
+                string sqlstr = "select State from Account where StuID = '" + id + "'";
+                Common.Open();
+                SqlDataReader re = Common.ExecuteRead(sqlstr);
+                if (re.Read())
+                {
+                 //   Common.State = re.GetString(re.GetOrdinal("State"));
+                    System.Web.HttpContext.Current.Session["State"] = re.GetString(re.GetOrdinal("State"));
+                }
+                Common.close();
+            }
+            catch(Exception e)
+            {
+                Alert.Show(e.Message);
+            }
+        
+        }
+
+
+    }
 }

@@ -26,7 +26,7 @@
                                   DataKeyNames="Id,Name" EnableRowClickEvent="true" AllowPaging="true" PageSize="40" PageIndex="0" OnPageIndexChange="Grid1_PageIndexChange" EnableCollapse="false">
                           
                                  <Columns>
-                                <f:TemplateField Width="60px">
+                                <f:TemplateField Width="60px" HeaderText="序号">
                                     <ItemTemplate>
                                         <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
                                     </ItemTemplate>

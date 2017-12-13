@@ -22,6 +22,7 @@ namespace WHMS.Account
         protected void Page_Load(object sender, EventArgs e)
         {
             Common.checklogin("../login.aspx");
+            SessionManager.CheckLogin("../login.aspx");
         }
         protected void btnselect_Click(object sender, EventArgs e)
         {

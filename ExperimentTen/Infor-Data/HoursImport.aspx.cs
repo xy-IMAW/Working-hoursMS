@@ -12,8 +12,8 @@ namespace WHMS.Infor_Data
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
-		}
+            SessionManager.CheckLogin("../login.aspx");
+        }
         protected void btn1_Click(object sender, EventArgs e)
         {
             //上传并更新班级

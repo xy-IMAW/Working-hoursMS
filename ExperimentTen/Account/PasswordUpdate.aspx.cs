@@ -15,17 +15,17 @@ namespace WHMS.Account
         {
             if (!IsPostBack)
             {
-                Common.checklogin("../login.aspx");
-                labStuID.Text = Common.ID;
-                if (Common.State == "0")
+                SessionManager.CheckLogin("../login.aspx");
+                labStuID.Text = Session["ID"].ToString();
+                if (Convert.ToString(Session["State"]) != "")
                 {
-                    LabState.Text = "管理员";
+                    LabState.Text = Session["State"].ToString();
                 }
                 else
                 {
-                    LabState.Text = "超级管理员";
+                    Alert.Show("管理员未设置权限？！");
                 }
-                string sqlstr = "select StuName from Student where StuID = '" + Common.ID + "'";
+                string sqlstr = "select StuName from Student where StuID = '" + Session["ID"].ToString() + "'";
                 Common.Open();
                 SqlDataReader re = Common.ExecuteRead(sqlstr);
                 if (re.Read())
@@ -57,7 +57,7 @@ namespace WHMS.Account
                 {
                     if (txtPwd1.Text == txtPwd2.Text)
                     {
-                        string sqlstring = "update Account set Password ='" + txtPwd2.Text + "' where StuID =" + Common.ID;
+                        string sqlstring = "update Account set Password ='" + txtPwd2.Text + "' where StuID =" + Session["ID"];
                         Common.ExecuteSql(sqlstring);
                         Alert.Show("修改成功", "提示", MessageBoxIcon.Information);
                       

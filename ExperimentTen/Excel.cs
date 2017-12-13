@@ -689,7 +689,7 @@ namespace WHMS
         }
 
 
-        public static Stream RenderDataTableToExcel(DataTable SourceTable)
+        public static MemoryStream  Export(DataTable SourceTable)
         {
             IWorkbook workbook = null;
             workbook = new HSSFWorkbook();
@@ -730,6 +730,39 @@ namespace WHMS
 
             return ms;
         }
+
+
+        /// <summary>
+        /// DataTable导出到Excel文件
+        /// </summary>
+        /// <param name="dtSource">源DataTable</param>
+        /// <param name="strHeaderText">表头文本</param>
+        /// <param name="strFileName">保存位置</param>
+        public static void Export(DataTable dtSource, string strHeaderText, string strFileName)
+        {
+            using (MemoryStream ms = Export(dtSource))
+            {
+                using (FileStream fs = new FileStream(strFileName, FileMode.Create, FileAccess.Write))
+                {
+                    byte[] data = ms.ToArray();
+                    fs.Write(data, 0, data.Length);
+                    fs.Flush();
+                }
+            }
+        }
+
+        public static void ExportByWeb(DataTable dtSource, string strFileName)
+        {
+            HttpContext curContext = HttpContext.Current;
+            strFileName += DateTime.Now.Date.ToString();
+            // 设置编码和附件格式
+            curContext.Response.ContentType = "application/vnd.ms-excel";
+            curContext.Response.ContentEncoding = Encoding.UTF8;
+            curContext.Response.Charset = "";
+            curContext.Response.AddHeader("Content-Disposition", string.Format("attachment; filename=" + strFileName + ".xls"));
+            curContext.Response.BinaryWrite(Export(dtSource).GetBuffer());
+            curContext.Response.End();
+        }
     }
 
     public class NPOIHelper
@@ -760,7 +793,7 @@ namespace WHMS
         /// <param name="strHeaderText">表头文本</param>
         public static MemoryStream Export(DataTable dtSource, string strHeaderText)
         {
-            string sql1 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+            string sql1 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + System.Web.HttpContext.Current.Session["SySe"] + "%'";
             DataTable program = Common.datatable(sql1);
 
             HSSFWorkbook workbook = new HSSFWorkbook();
@@ -849,7 +882,7 @@ namespace WHMS
                         sheet.AddMergedRegion(new CellRangeAddress(1, 2, program.Rows.Count + 3, program.Rows.Count + 3));
                          cell5.CellStyle = Sub_HeadStyle(workbook);
                       
-
+                        //活动列的生成
 
                         for (int i = 3, j = 0; j < program.Rows.Count; i++, j++)
                         {

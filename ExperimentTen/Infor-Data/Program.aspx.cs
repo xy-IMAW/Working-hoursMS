@@ -12,6 +12,7 @@ namespace WHMS.Infor_Data
         {
             if (!IsPostBack)
             {
+                SessionManager.CheckLogin("../login.aspx");
                 BindDDL();//学期下拉框
                 bind();
             }
@@ -151,33 +152,35 @@ namespace WHMS.Infor_Data
         //添加活动
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            //查重
-            bool flag = true;//标志是否重复
-        
+            if (date.SelectedDate != null)
+            {
+                //查重
+                bool flag = true;//标志是否重复
+
                 string sqlstr = "select Program from ProgramList where SySe like '" + selectSy.SelectedItem.Text + "%'";
                 Common.Open();
                 SqlDataReader reader = Common.ExecuteRead(sqlstr);
-            while (flag)
-            {
-                int a = 0;//标志是否进行了下面的循环
-                while (reader.Read())
+                while (flag)
                 {
-                    string name = reader.GetString(reader.GetOrdinal("Program"));
-                    if (name == selectPro.SelectedItem.Text)
+                    int a = 0;//标志是否进行了下面的循环
+                    while (reader.Read())
                     {
+                        string name = reader.GetString(reader.GetOrdinal("Program"));
+                        if (name == selectPro.SelectedItem.Text)
+                        {
 
-                        Common.close();
-                        flag = false;//该学年有重复
-                        Alert.Show("该活动已存在！", "错误", MessageBoxIcon.Error);
-                        break;
+                            Common.close();
+                            flag = false;//该学年有重复
+                            Alert.Show("该活动已存在！", "错误", MessageBoxIcon.Error);
+                            break;
+                        }
+                        a++;
                     }
-                    a++;
+                    if (a == 0)
+                    {
+                        break;//没有重复
+                    }
                 }
-                if (a == 0)
-                {
-                    break;//没有重复
-                }
-            }
                 if (flag)//不重复
                 {
                     Common.close();
@@ -190,7 +193,10 @@ namespace WHMS.Infor_Data
                     Common.close();//任何情况结束后都要关闭连接
                     Alert.Show("该活动已在活动表中", "错误", MessageBoxIcon.Error);
                 }
-            
+            }
+            else {
+                Alert.Show("请选择日期!");
+            }
         }
         //删除活动
         protected void btnDelete_Click(object sender, EventArgs e)
@@ -203,29 +209,36 @@ namespace WHMS.Infor_Data
         //添加活动到总表
         protected void btnAddProgram_Click(object sender, EventArgs e)
         {
-            bool flag = false;
-            string sqlstr = "select ProgramName from ProgramSummary";
-            DataTable dt = Common.datatable(sqlstr);
-            foreach (DataRow dr in dt.Rows)
+            try
             {
-                if (dr.ToString() == txtProgram.Text)
+                bool flag = false;
+                string sqlstr = "select ProgramName from ProgramSummary";
+                DataTable dt = Common.datatable(sqlstr);
+                foreach (DataRow dr in dt.Rows)
                 {
-                    flag = true;
+                    if (dr.ToString() == txtProgram.Text)
+                    {
+                        flag = true;
+                    }
+                    else
+                    { }
+                }
+                if (flag)
+                {
+                    Alert.Show("该活动已在表中", "错误", MessageBoxIcon.Error);
                 }
                 else
-                { }
+                {
+                    string sqlstr2 = "insert into ProgramSummary (ProgramName) values ('" + txtProgram.Text + "')";
+                    Common.ExecuteSql(sqlstr2);
+                    Alert.Show("添加成功", "提示", MessageBoxIcon.Information);
+                    bind();
+                }
             }
-            if (flag)
-            {
-                Alert.Show("该活动已在表中", "错误", MessageBoxIcon.Error);
+            catch(Exception ex) {
+                Alert.Show(ex.Message);
             }
-            else
-            {
-                string sqlstr2 = "insert into ProgramSummary (ProgramName) values ('" + txtProgram.Text + "')";
-                Common.ExecuteSql(sqlstr2);
-                Alert.Show("添加成功", "提示", MessageBoxIcon.Information);
-                bind();
-            }
+       
         }
         //从总表删除
         protected void btnDeleteProgram_Click(object sender, EventArgs e)
@@ -245,8 +258,8 @@ namespace WHMS.Infor_Data
             }
             else
             {
-                Common.Program = gridExample.SelectedRow.Values[1].ToString();
-                Common.SySe = DDL.SelectedItem.ToString();
+                Session["Program"] = gridExample.SelectedRow.Values[1].ToString();
+                Session["SySe"] = gridExample.SelectedRow.Values[2].ToString();
                 PageContext.RegisterStartupScript(window1.GetShowReference("ProgramData.aspx"));
             }
         }

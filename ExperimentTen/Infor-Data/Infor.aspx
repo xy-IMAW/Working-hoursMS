@@ -106,7 +106,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                         </f:Grid>                     
                        </Items>
                      </f:Panel>
-                         <f:Window ID="window1" Title="增加学生"  EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
+                         <f:Window ID="window1" Title=""  EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
             EnableResize="true" EnableClose="true" Target="Top" OnClose="window1_Close" IsModal="true" Width="550px" Height="450px" runat="server">
         </f:Window>                       
                         <f:Window ID="window3" Title="导入学生名单" EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"

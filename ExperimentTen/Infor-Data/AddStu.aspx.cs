@@ -13,7 +13,7 @@ namespace WHMS.Infor_Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Common.checklogin("../login.aspx");
+            SessionManager.CheckLogin("../login.aspx");
         }
         #region 添加学生
         protected void btnAdd_Click(object sender, EventArgs e)

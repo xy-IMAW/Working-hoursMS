@@ -15,8 +15,9 @@ namespace WHMS.Infor_Data
         {
             if (!IsPostBack)
             {
+                SessionManager.CheckLogin("../login.aspx");
                 BindGrid();
-                GridView1.Caption=Common.grade+"年级 "+Common.SySe+"学期工时表";
+                GridView1.Caption=Session["grade"]+"年级     "+Session["SySe"]+"学期工时表";
             }
         }
 
@@ -25,9 +26,9 @@ namespace WHMS.Infor_Data
             // DataTable data = new DataTable();
             DataRow dr;
 
-            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
-            string sql2 = "select StuID,StuName,Class from Student where Grade='" + Common.grade + "' order by Class,StuID";
-            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+            string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Session["SySe"] + "%'";
+            string sql2 = "select StuID,StuName,Class from Student where Grade='" + Session["grade"] + "' order by Class,StuID";
+            string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Session["SySe"] + "%'";
             DataTable dt = Common.datatable(sql1);
             DataTable student = Common.datatable(sql2);
             DataTable program = Common.datatable(sql3);
@@ -136,7 +137,7 @@ namespace WHMS.Infor_Data
         {
             if (e.Row.RowType == DataControlRowType.Header)
             {
-                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%'";
+                string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Session["SySe"] + "%'";
                 DataTable program = Common.datatable(sql3);
 
                 TableCellCollection header = e.Row.Cells;
@@ -175,7 +176,7 @@ namespace WHMS.Infor_Data
 
             DataTable dt = new DataTable();
             Bind(dt);
-            NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption);
+            NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption.Trim());
 
         }
 

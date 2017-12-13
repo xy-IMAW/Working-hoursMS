@@ -6,7 +6,7 @@
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-<  <style>
+  <style>
                 .mypanel {
             text-align: center;
             padding-top: 10px;
@@ -53,6 +53,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                                <div style="align-content:center;align-items:center;padding-left:150px;padding-top:10px">
                                     <asp:GridView ID="GridView1" runat="server"  ShowFooter="true" ShowHeader="true" OnRowCreated="GridView1_RowCreated" >                              
                            </asp:GridView>  
+                                   <asp:GridView ID="gridview" runat="server" />
                                </div>
                                                                                                     
                           </f:ContentPanel>                                                       

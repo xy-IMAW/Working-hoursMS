@@ -8,7 +8,9 @@ namespace WHMS.Infor_Data
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindGrid(GridView1);
+            SessionManager.CheckLogin("../login.aspx");
+            //   BindGrid(GridView1);
+            bindtest();
         }
 
         public void Bind(DataTable data)
@@ -17,7 +19,7 @@ namespace WHMS.Infor_Data
             DataRow dr;
 
             string sql1 = "select * from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%' and Program='"+Common.Program+"'";
-            string sql2 = "select StuID,StuName,Class from Student where Class='" + Common.Class + "' order by StuID";
+            string sql2 = "select StuID,StuName,Class from Working_hours where SySe like '%" + Common.SySe + "%' and Program='" + Common.Program + "' order by StuID";
             string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + Common.SySe + "%' and Program='" + Common.Program + "'";
             DataTable dt = Common.datatable(sql1);
             DataTable student = Common.datatable(sql2);
@@ -41,15 +43,6 @@ namespace WHMS.Infor_Data
                     data.Columns.Add("合计", typeof(int));
                 }
             }
-            //构建活动行
-            /*     dr = data.NewRow();
-                 for (int i=0;i<program.Rows.Count;i++)
-                 {
-
-                     dr[i] = program.Rows[i][0].ToString();
-                 }
-                 data.Rows.Add(dr);
-     */
 
             for (int i = 0; i < student.Rows.Count; i++)
             {
@@ -68,8 +61,7 @@ namespace WHMS.Infor_Data
                         string t3 = dt.Rows[t][2].ToString();
                         string t4 = program.Rows[j][0].ToString();
                         if (dt.Rows[t][0].ToString() == student.Rows[i][0].ToString() && dt.Rows[t][2].ToString() == program.Rows[j][0].ToString())
-                        {
-                            // dr[program.Rows[j][0].ToString()]= dt.Rows[t][3].ToString();
+                        {                      
                             dr[3 + j] = dt.Rows[t][3].ToString();
                             total += Convert.ToInt32(dt.Rows[t][3].ToString());
                         }
@@ -77,53 +69,18 @@ namespace WHMS.Infor_Data
                 }
                 dr["合计"] = total;
                 data.Rows.Add(dr);
-            }
-
-            //   GridView1.DataSource = data;
-            //  GridView1.DataBind();
+            }      
         }
 
 
         private void BindGrid(GridView GridView1)
-        {
-            #region  添加动态列   
-            /*    GridView1.Columns.Clear();
-                 GridView1.Width = new Unit(0);
-
-                 string sql1 = "select * from [Working_hoursInfor] where SySe like '%2016-2017-1%'";
-                 string sql2 = "select StuID,StuName,Class from Student where Class='信管1501' order by Class,StuID";
-                 string sql3 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%2016-2017-1%'";
-                 DataTable dt = Common.datatable(sql1);                                                                                                                                          
-                 DataTable student = Common.datatable(sql2);
-                 DataTable program = Common.datatable(sql3);
-
-                 CreateGridColumn("学号", "学号", 150);
-                 CreateGridColumn("姓名", "姓名", 150);
-                 CreateGridColumn("班级", "班级", 150);
-
-
-                 for (int i=0;i<=program.Rows.Count;i++)
-                 {
-                     if (i < program.Rows.Count)
-                     {
-                   //      DateTime time = Convert.ToDateTime(program.Rows[i][1].ToString()).Date;
-                         CreateGridColumn(program.Rows[i][0].ToString(), program.Rows[i][0].ToString(), 150);
-                     }
-                     else
-                     {
-                        AspNet. TemplateField count = new AspNet. TemplateField();
-                         GridView1.Columns.Add(count);
-                     }
-                 }*/
-            #endregion
+        {       
 
             DataTable data = new DataTable();
             Bind(data);
             //data：数据源  
             GridView1.DataSource = data;
             GridView1.DataBind();
-
-            //   output(GridView1);
         }
 
 
@@ -167,12 +124,26 @@ namespace WHMS.Infor_Data
 
         protected void Button2_Click(object sender, EventArgs e)
         {
-
-
-            DataTable dt = new DataTable();
-            Bind(dt);
+         //   DataTable dt = new DataTable();
+         //   Bind(dt);
+            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',Date as '日期' from Working_hours where Program ='" + Session["Program"] + "' and SySe ='" + Session["SySe"] + "'";
+            DataTable dt = Common.datatable(sql);
+            gridview.DataSource = dt;
             //   NPOItest.Batch_Update(dt);
-            NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption);
+            //    NPOIHelper.ExportByWeb(dt, GridView1.Caption, GridView1.Caption);
+
+            //   NPOIHelper.ExportByWeb(dt, gridview.Caption, gridview.Caption);
+            NPOI_EXCEL.ExportByWeb(dt,gridview.Caption);
+
+        }
+
+
+        public void bindtest() {
+            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',Date as '日期' from Working_hours where Program ='"+Session["Program"]+"' and SySe ='"+Session["SySe"]+"'";
+            DataTable dt = Common.datatable(sql);
+            gridview.DataSource = dt;
+            gridview.DataBind();
+            gridview.Caption=Session["SySe"].ToString()+"学期\t"+Session["Program"]+"\t活动工时表";
         }
     }
 }

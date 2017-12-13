@@ -33,6 +33,9 @@
                                   <f:BoundField DataField="姓名" runat="server"></f:BoundField>
                                   <f:BoundField DataField="班级" runat="server"></f:BoundField>
                                   <f:BoundField DataField="年级" runat="server"></f:BoundField>
+                                  <f:BoundField DataField="性别" runat="server"></f:BoundField>
+                                  <f:BoundField DataField="备注" runat="server"></f:BoundField>
+
                             </Columns>
                         </f:Grid>
                
