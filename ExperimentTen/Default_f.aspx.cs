@@ -12,7 +12,7 @@ namespace WHMS
             if (!IsPostBack)
             {
                 //Response.Redirect("http://sso.jwc.whut.edu.cn/Certification//login.do");///test
-                Common.Sid = "";
+        
                 #region 
               
               //  Common.checklogin("/login.aspx");

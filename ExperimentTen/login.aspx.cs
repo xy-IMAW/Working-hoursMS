@@ -15,10 +15,7 @@ namespace WHMS
         {
             Common.close();//确保数据库连接关闭
                            //重置所有关键字符的值
-            //if (Common.IsLogin)
-            //{
-            //    Alert.Show("请正常登录！", "警告", MessageBoxIcon.Warning);
-            //}
+      
             if (Convert.ToString( Session["IsLogin"])=="false")
             {
                 Alert.Show("请正常登录！", "警告", MessageBoxIcon.Warning);

@@ -16,7 +16,7 @@ namespace WHMS.Infor_Data
             if (!IsPostBack)
             {
                 Common.checklogin("../login.aspx");
-                Common.Sid = "";
+          
                 grade = "";
                 Class1 = "";
               
@@ -219,7 +219,7 @@ namespace WHMS.Infor_Data
         {
             if (Grid1.SelectedRow.Values[1].ToString() != null)
             {
-                Common.Sid = Grid1.SelectedRow.Values[1].ToString();
+              
                 Response.Redirect("Data.aspx");
             }
         }

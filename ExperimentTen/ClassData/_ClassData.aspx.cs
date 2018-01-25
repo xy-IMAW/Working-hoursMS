@@ -22,7 +22,7 @@ namespace WHMS.ClassData
             if (!IsPostBack)
             {
                 bind();
-                lab.Text = Common.Class+"工时查询";
+                lab.Text = Session["Class"] + "工时查询";
                 stuBind();         
             }
         }
@@ -74,7 +74,11 @@ namespace WHMS.ClassData
         //班级信息
         public void stuBind()
         {
-            string sql = "select * from Student where Class ='"+Common.Class+"'";
+            //获取组织委员的班级信息
+            string sqlstr = "select Class from Student where StuID='"+Session["ID"]+"'";
+            DataTable d = Common.datatable(sqlstr);
+            Session["Class"] = d.Rows[0][0].ToString();
+            string sql = "select * from Student where Class ='" + Session["Class"] + "'";
             DataTable dt = Common.datatable(sql);
             Grid1.DataSource = dt;
             Grid1.DataBind();

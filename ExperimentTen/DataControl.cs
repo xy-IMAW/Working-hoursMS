@@ -68,7 +68,8 @@ namespace WHMS
         {
             string Class;
             string Grade;
-            Grade = grid.Rows[0].Values[0].ToString();
+  
+            Grade = grid.Rows[0].Values[0].ToString();//以第一个班级的年级为准
             string sql = "delete from Class where Grade='" + Grade + "'";//删除同年级的班级
             Common.ExecuteSql(sql);
 
@@ -79,8 +80,9 @@ namespace WHMS
 
                 string sqlstr = "insert into Class (Class,Grade) values ('" + Class + "','" + Grade + "')";//插入新数据
                 Common.ExecuteSql(sqlstr);
-
+                
             }
+            Alert.Show("已更新"+grid.Rows.Count.ToString()+"条班级信息","提示",MessageBoxIcon.Information);
         }
         //学生表更新--存在的更新，不存在的插入
         public static void UpdataStudent(Grid grid)

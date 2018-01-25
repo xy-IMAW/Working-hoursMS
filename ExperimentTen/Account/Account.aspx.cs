@@ -64,7 +64,7 @@ namespace WHMS.Account
         #region excel_handle
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string excelname = DateTime.Now.ToString("yyMMddhhmmss");
+            string excelname ="管理员名单"+ DateTime.Now.ToString("yyMMddhhmmss");
             Response.ClearContent();
             Response.AddHeader("content-disposition", "attachment; filename=" + excelname + ".xls");
             Response.ContentType = "application/-excel";

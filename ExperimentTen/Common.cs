@@ -15,7 +15,7 @@ namespace WHMS
 {
     public class Common
     {
-      
+
 
         #region common string
         private static string state;//管理员性质
@@ -44,7 +44,7 @@ namespace WHMS
             set { name = value; }
             get { return name; }
         }
-        public static bool IsLogin=false;
+        public static bool IsLogin = false;
 
 
         public static int grade;
@@ -53,14 +53,14 @@ namespace WHMS
         public static string Program;
         public static string path;
         #endregion
-        public static void checklogin( string url)
+        public static void checklogin(string url)
         {
             //state为空说明未正常登陆
             if (Common.state == "")
             {
                 IsLogin = true;
                 System.Web.HttpContext.Current.Response.Redirect(url);
-               
+
             }
             else
             { IsLogin = false; }
@@ -86,7 +86,7 @@ namespace WHMS
             {
                 Alert.Show(e.Message);
                 throw e;
-              //  throw new Exception(e.Message);
+                //  throw new Exception(e.Message);
             }
             finally
             {
@@ -115,7 +115,7 @@ namespace WHMS
             {
                 Alert.Show(e.Message);
                 throw e;
-             //   throw new Exception(e.Message);
+                //   throw new Exception(e.Message);
             }
             finally
             {
@@ -139,7 +139,7 @@ namespace WHMS
             catch (Exception e)
             {
                 //throw new Exception(e.Message);
-              string  Message ="出现系统错误："+ e.Message;
+                string Message = "出现系统错误：" + e.Message;
                 Alert.Show(Message);
             }
             finally
@@ -170,9 +170,9 @@ namespace WHMS
             }
             catch (Exception e)
             {
-                Alert.Show("数据库错误："+e.Message);
+                Alert.Show("数据库错误：" + e.Message);
                 throw e;
-               // throw new Exception(e.Message);
+                // throw new Exception(e.Message);
             }
             finally
             {
@@ -198,8 +198,8 @@ namespace WHMS
             {
                 Alert.Show(e.Message);
                 throw e;
-             //   throw new Exception(e.Message);
-               
+                //   throw new Exception(e.Message);
+
             }
             //finally
             //{
@@ -225,13 +225,18 @@ namespace WHMS
 
 
 
-    public class SessionManager {
-        
-        
-        public static void CheckLogin(string url) {
+    public class SessionManager
+    {
+
+        /// <summary>
+        /// 检查是否正常登录
+        /// </summary>
+        /// <param name="url">与登录页的相对地址</param>
+        public static void CheckLogin(string url)
+        {
             if (Convert.ToString(System.Web.HttpContext.Current.Session["State"]) != "")//state为空说明未进行正常登录操作
             {
-                System.Web.HttpContext.Current.Session["IsLogin"] = "true";//正常登录后设置IsLogin为true说明是登登录无异常
+                System.Web.HttpContext.Current.Session["IsLogin"] = "true";//正常登录后设置IsLogin为true说明是登录无异常
             }
             else
             {
@@ -240,7 +245,13 @@ namespace WHMS
             }
 
         }
-        public static void setState(string id) {
+
+        /// <summary>
+        /// 设置登录者的state session
+        /// </summary>
+        /// <param name="id">登录者id</param>
+        public static void setState(string id)
+        {
             try
             {
                 string sqlstr = "select State from Account where StuID = '" + id + "'";
@@ -248,18 +259,20 @@ namespace WHMS
                 SqlDataReader re = Common.ExecuteRead(sqlstr);
                 if (re.Read())
                 {
-                 //   Common.State = re.GetString(re.GetOrdinal("State"));
+                    //   Common.State = re.GetString(re.GetOrdinal("State"));
                     System.Web.HttpContext.Current.Session["State"] = re.GetString(re.GetOrdinal("State"));
                 }
                 Common.close();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Alert.Show(e.Message);
             }
-        
+
         }
 
 
     }
 }
+
+ 

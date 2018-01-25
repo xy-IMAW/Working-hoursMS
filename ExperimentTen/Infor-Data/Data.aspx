@@ -22,7 +22,7 @@
           <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" EnableCollapse="true" Layout="Fit">
             <Items>
                 <f:Grid Height="750px" ID="gridExample" Title="工时信息" ShowBorder="false" ShowHeader="true" IsDatabasePaging="true"
-                    DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="true" AllowPaging="true"   PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
+                    DataKeyNames="ID" EnableCollapse="false"  AllowPaging="true"   PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
                     EnableMultiSelect="false"  runat="server" EnableSummary="true" SummaryPosition="Bottom">
                    
                     <Toolbars>                        
