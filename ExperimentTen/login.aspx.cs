@@ -63,5 +63,11 @@ namespace WHMS
             string sql = "insert into Login (StuID,Date) values ('" + Session["ID"].ToString() + "','" + date + "')";
             Common.ExecuteSql(sql);
         }
+
+        protected void btnReset_Click(object sender, EventArgs e)
+        {
+            tbxStuID.Text = "";
+            tbxPassword.Text = "";
+        }
     }
 }
