@@ -222,7 +222,7 @@
                                                 </f:Region>
                                                 <f:Region runat="server" ShowBorder="false">
                                                     <Items>
-                                                           <f:Grid runat="server" ID="grid" ShowBorder="false" RegionPosition="Center" Hidden="true">
+                                                           <f:Grid runat="server" ID="grid" ShowBorder="false" RegionPosition="Center" Hidden="true" PageSize="23" PageIndex="0" AllowPaging="true" OnPageIndexChange="grid_PageIndexChange">
                                                             <Columns>
                                                                 <f:TemplateField HeaderText="序号">
                                                                     <ItemTemplate>
@@ -232,7 +232,7 @@
                                                                 <f:BoundField runat="server" DataField="StuID" Width="200px" TextAlign="Center" HeaderText="学号" />
                                                                 <f:BoundField runat="server" DataField="StuName" Width="100px" TextAlign="Center" HeaderText="姓名" />
                                                                 <f:BoundField runat="server" DataField="State" Width="100px" TextAlign="Center" HeaderText="权限" />
-                                                                <f:BoundField runat="server" DataField="Date" Width="200px" TextAlign="Center" HeaderText="登陆时间" />
+                                                                <f:BoundField runat="server" DataField="Date" Width="200px" TextAlign="Center" HeaderText="登录时间" />
 
                                                             </Columns>
                                                         </f:Grid>

@@ -24,12 +24,12 @@
                 <Items>
        <f:Grid ID="grid" runat="server">
            <Columns>
-                   <f:BoundField DataField="学号" runat="server"></f:BoundField>
-                          <f:BoundField DataField="姓名" runat="server"></f:BoundField>
-                                 <f:BoundField DataField="活动" runat="server"></f:BoundField>
-                          <f:BoundField DataField="工时" runat="server"></f:BoundField>
-                         <f:BoundField DataField="学年学期" runat="server"></f:BoundField>
-                          <f:BoundField DataField="日期" runat="server"></f:BoundField>
+                   <f:BoundField DataField="学号" HeaderText="学号" runat="server"></f:BoundField>
+                          <f:BoundField DataField="姓名" HeaderText="姓名" runat="server"></f:BoundField>
+                                 <f:BoundField DataField="活动" HeaderText="活动" runat="server"></f:BoundField>
+                          <f:BoundField DataField="工时" HeaderText="工时" runat="server"></f:BoundField>
+                         <f:BoundField DataField="学年学期" HeaderText="学年学期" runat="server"></f:BoundField>
+                          <f:BoundField DataField="日期" HeaderText="日期" runat="server"></f:BoundField>
            </Columns>
            
        </f:Grid>

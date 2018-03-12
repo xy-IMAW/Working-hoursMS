@@ -82,9 +82,16 @@ namespace WHMS
                 Common.ExecuteSql(sqlstr);
                 
             }
-            Alert.Show("已更新"+grid.Rows.Count.ToString()+"条班级信息","提示",MessageBoxIcon.Information);
+            try
+            {
+                Alert.Show("已更新" + grid.Rows.Count.ToString() + "条班级信息", "提示", MessageBoxIcon.Information);
+            }
+            catch(Exception e)
+            {
+                Alert.Show(e.Message);
+            }
         }
-        //学生表更新--存在的更新，不存在的插入
+        //学生表更新---存在的更新，不存在的插入
         public static void UpdataStudent(Grid grid)
         {
             bool NoRepeat = true;
@@ -131,14 +138,21 @@ namespace WHMS
                 }
 
             }
-            if (flag == 0)
+            try
             {
-                Alert.Show("添加成功！\r\n已添加" + flag2.ToString() + "条记录！", "提示", FineUI.MessageBoxIcon.Information);
-            }
-            else
-            {
-                Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录已更新", "提示", FineUI.MessageBoxIcon.Information);
+                if (flag == 0)
+                {
+                    Alert.Show("添加成功！\r\n已添加" + flag2.ToString() + "条记录！", "提示", FineUI.MessageBoxIcon.Information);
+                }
+                else
+                {
+                    Alert.Show("已添加" + flag2.ToString() + "条记录\r\n 有" + flag.ToString() + "条记录已更新", "提示", FineUI.MessageBoxIcon.Information);
 
+                }
+            }
+            catch(Exception e)
+            {
+                Alert.Show(e.Message);
             }
         }
 

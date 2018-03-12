@@ -20,7 +20,7 @@ namespace WHMS.Infor_Data
                 SessionManager.CheckLogin("../login.aspx");
                 //Common.Class = "";
                 //Common.SySe = "";
-                Import.OnClientClick = window1.GetShowReference("ClassImport.aspx");
+                Import.OnClientClick = window1.GetShowReference("ClassImport.aspx","导入班级");
                  btnImport.OnClientClick = window1.GetShowReference("HoursImport.aspx", "导入工时");
                 GradeBind();
             }

@@ -29,12 +29,12 @@
             <Items>
                         <f:Grid ID="grid" runat="server">
                             <Columns>
-                                   <f:BoundField DataField="学号" runat="server"></f:BoundField>
-                                  <f:BoundField DataField="姓名" runat="server"></f:BoundField>
-                                  <f:BoundField DataField="班级" runat="server"></f:BoundField>
-                                  <f:BoundField DataField="年级" runat="server"></f:BoundField>
-                                  <f:BoundField DataField="性别" runat="server"></f:BoundField>
-                                  <f:BoundField DataField="备注" runat="server"></f:BoundField>
+                                   <f:BoundField DataField="学号" HeaderText="学号" runat="server"></f:BoundField>
+                                  <f:BoundField DataField="姓名" HeaderText="姓名"  runat="server"></f:BoundField>
+                                  <f:BoundField DataField="班级" HeaderText="班级"  runat="server"></f:BoundField>
+                                  <f:BoundField DataField="年级" HeaderText="年级"  runat="server"></f:BoundField>
+                                  <f:BoundField DataField="性别" HeaderText="性别"  runat="server"></f:BoundField>
+                                  <f:BoundField DataField="备注" HeaderText="备注"  runat="server"></f:BoundField>
 
                             </Columns>
                         </f:Grid>

@@ -156,5 +156,10 @@ namespace WHMS
             Session["Class"] = dt.Rows[0][0].ToString();
 
         }
+
+        protected void grid_PageIndexChange(object sender, GridPageEventArgs e)
+        {
+            grid.PageIndex = e.NewPageIndex;
+        }
     }
 }
