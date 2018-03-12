@@ -75,9 +75,9 @@ namespace WHMS.ClassData
         public void stuBind()
         {
             //获取组织委员的班级信息
-            string sqlstr = "select Class from Student where StuID='"+Session["ID"]+"'";
-            DataTable d = Common.datatable(sqlstr);
-            Session["Class"] = d.Rows[0][0].ToString();
+            // sqlstr = "select Class from Student where StuID='" + Session["ID"] + "'";
+            //DataTable d = Common.datatable(sqlstr);
+            //Session["Class"] = d.Rows[0][0].ToString();
             string sql = "select * from Student where Class ='" + Session["Class"] + "'";
             DataTable dt = Common.datatable(sql);
             Grid1.DataSource = dt;
@@ -92,7 +92,7 @@ namespace WHMS.ClassData
             }
             else
             {
-                Common.SySe = DL1.SelectedText.ToString();
+                Session["SySe"] = DL1.SelectedText.ToString();
                 PageContext.RegisterStartupScript(window1.GetShowReference("~/Infor-Data/ClassData.aspx"));
             }
         }

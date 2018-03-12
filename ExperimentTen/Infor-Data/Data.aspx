@@ -38,7 +38,7 @@
                                 </f:DropDownList>
                               <f:Button ID="btnSelect" Text="查询" runat="server" OnClick="btnSelect_Click" Icon="Zoom"></f:Button>
                                
-                                <f:Button ID="btnDelete" OnClick="btnDelete_Click3" Text="删除" Icon="Delete" runat="server">
+                                <f:Button ID="btnDelete" OnClick="btnDelete_Click3" Text="删除" Icon="Delete" runat="server" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？">
                                 </f:Button>
                                 <f:Button ID="Button1" EnableAjax="false" Icon="PageWhiteExcel" DisableControlBeforePostBack="false"  runat="server" Text="导出为Excel文件" OnClick="Button1_Click">
                                 </f:Button>

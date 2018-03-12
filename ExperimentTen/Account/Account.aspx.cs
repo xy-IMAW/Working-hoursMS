@@ -39,7 +39,7 @@ namespace WHMS.Account
             }
             else
             {
-                string id = gridExample.SelectedRow.Values[0].ToString();//选中行的第一列数据为ID
+                string id = gridExample.SelectedRow.Values[1].ToString();//选中行的第一列数据为ID
                 string sqlStr = "delete from Account where StuID= '" + id + " '";
                 Common.ExecuteSql(sqlStr);
                 this.Bind1();

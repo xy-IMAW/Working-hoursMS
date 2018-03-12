@@ -135,13 +135,19 @@ namespace WHMS.Infor_Data
 
         protected void btnDelete_Click3(object sender, EventArgs e)
         {
+            if (gridExample.SelectedRowIndex < 0)
+            {
+                Alert.Show("请选择一项进行删除", "警告", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string id = gridExample.SelectedRow.Values[0].ToString();//选中行的第一列为ID
 
-            string id = gridExample.SelectedRow.Values[0].ToString();//选中行的第一列为ID
-
-            string sqlStr = "delete from Working_hours where SySe= '" + id + " '";
-            Common.ExecuteSql(sqlStr);
-            this.BindGrid3();
-            Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
+                string sqlStr = "delete from Working_hours where SySe= '" + id + " '";
+                Common.ExecuteSql(sqlStr);
+                this.BindGrid3();
+                Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
+            }
         }
 
         protected void gridExample_Sort(object sender, GridSortEventArgs e)

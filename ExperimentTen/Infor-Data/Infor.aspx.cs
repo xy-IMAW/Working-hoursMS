@@ -24,7 +24,7 @@ namespace WHMS.Infor_Data
               
                 bind();
                 btnSearch.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择要查看的学号","警告",MessageBoxIcon.Warning);
-                btnadd.OnClientClick = window1.GetShowReference("AddStu.aspx","添加学生");           
+                btnadd.OnClientClick = window1.GetShowReference("AddStu.aspx","");           
                 btnImport.OnClientClick = window3.GetShowReference("StuImport.aspx","导入学生名单");
             }
       

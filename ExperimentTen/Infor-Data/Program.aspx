@@ -24,7 +24,7 @@
                         <f:Toolbar ID="tool2" runat="server" ToolbarAlign="Right">  
                             <Items>
                                 <f:Button ID="btnAddProgram" runat="server" Text="添加" Icon="Add" OnClick="btnAddProgram_Click" BoxConfigAlign="Center"></f:Button>
-                             <f:Button ID="btnDeleteProgram" runat="server" Text="删除" Icon="Delete" OnClick="btnDeleteProgram_Click" RegionPosition="Center"></f:Button>
+                             <f:Button ID="btnDeleteProgram" runat="server" Text="删除" Icon="Delete" OnClick="btnDeleteProgram_Click" RegionPosition="Center" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？"></f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -71,7 +71,7 @@
                             <Items>
                                 <f:DropDownList ID="DDL" runat="server" Label="学期" LabelAlign="Right" Width="180px" LabelWidth="50px"></f:DropDownList>
                                 <f:Button ID="btnSearch" Text="查看" Icon="Zoom" runat="server" OnClick="btnSearch_Click"></f:Button>                               
-                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click"></f:Button>    
+                                <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？"></f:Button>    
                                 <f:Button runat="server" ID="btnSearch_hours" Text="查看工时" Icon="ApplicationViewList" OnClick="btnSearch_hours_Click"/>                                                   
                             </Items>
                         </f:Toolbar>

@@ -139,7 +139,7 @@ namespace WHMS.Infor_Data
 
 
         public void bindtest() {
-            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',Date as '日期' from Working_hours where Program ='"+Session["Program"]+"' and SySe ='"+Session["SySe"]+"'";
+            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',convert(varchar(12),Date,111) as '日期' from Working_hours where Program ='" + Session["Program"]+"' and SySe ='"+Session["SySe"]+"'";
             DataTable dt = Common.datatable(sql);
             gridview.DataSource = dt;
             gridview.DataBind();

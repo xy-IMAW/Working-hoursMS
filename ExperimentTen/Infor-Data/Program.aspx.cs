@@ -131,7 +131,7 @@ namespace WHMS.Infor_Data
         {
             string year = DDL.SelectedItem.Value;
             
-            string sqlstr = "select Program,SySe,Date from ProgramList where SySe like '" + year + "%'";
+            string sqlstr = "select Program,SySe,convert(varchar(12),Date,111) from ProgramList where SySe like '" + year + "%'";
             DataTable dt = Common.datatable(sqlstr);
             gridExample.DataSource = dt;
             gridExample.DataBind();
@@ -201,10 +201,17 @@ namespace WHMS.Infor_Data
         //删除活动
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            string sqlstr = "delete from ProgramList where Program='" + gridExample.SelectedRow.Values[1] + "'and Date='" + gridExample.SelectedRow.Values[3] + "'";
-            Common.ExecuteSql(sqlstr);
-            Bind();
-            Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+            if (gridExample.SelectedRowIndex<0) {
+                Alert.Show("请选择一项进行删除", "警告", MessageBoxIcon.Warning);
+
+            }
+            else {
+
+                string sqlstr = "delete from ProgramList where Program='" + gridExample.SelectedRow.Values[1] + "'and Date='" + gridExample.SelectedRow.Values[3] + "'";
+                Common.ExecuteSql(sqlstr);
+                Bind();
+                Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+            }
         }
         //添加活动到总表
         protected void btnAddProgram_Click(object sender, EventArgs e)
@@ -243,10 +250,17 @@ namespace WHMS.Infor_Data
         //从总表删除
         protected void btnDeleteProgram_Click(object sender, EventArgs e)
         {
-            string sqlstr = "delete from ProgramSummary where ProgramName='" + Grid1.SelectedRow.Values[1].ToString() + "'";
-            Common.ExecuteSql(sqlstr);
-            bind();
-            Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+            if (Grid1.SelectedRowIndex < 0)
+            {
+                Alert.Show("请选择一项进行删除", "警告", MessageBoxIcon.Warning);
+            }
+            else
+            {
+                string sqlstr = "delete from ProgramSummary where ProgramName='" + Grid1.SelectedRow.Values[1].ToString() + "'";
+                Common.ExecuteSql(sqlstr);
+                bind();
+                Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+            }
         }
         #endregion
 

@@ -89,6 +89,7 @@ namespace WHMS
                 leftMenuTree.Nodes.Add(node3);
                 leftMenuTree.Nodes.Add(node5);
                 leftMenuTree.Nodes.Add(node4);
+                
               
 
                 // leftMenuTree.Nodes[0].Nodes[2].NavigateUrl = "~/Account/Account.aspx";
@@ -101,7 +102,7 @@ namespace WHMS
                 leftMenuTree.Nodes.Add(node3);
                 leftMenuTree.Nodes.Add(node5);
                 leftMenuTree.Nodes.Add(node4);
-             
+                getClass();
 
                
       
@@ -112,6 +113,7 @@ namespace WHMS
             else//组织委员界面
             {
                 leftMenuTree.Nodes.Add(node6);
+                getClass();
                 ///todo 组织委员界面
             }
         }
@@ -152,7 +154,7 @@ namespace WHMS
             string sql = "select Class from Student where StuID='"+Session["ID"]+"'";
             DataTable dt = Common.datatable(sql);
             Session["Class"] = dt.Rows[0][0].ToString();
-         //   Common.Class = dt.Rows[0][0].ToString();
+
         }
     }
 }
