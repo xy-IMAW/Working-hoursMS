@@ -135,6 +135,7 @@
     <Content Include="Account\Account.aspx" />
     <Content Include="Account\AccountAdd.aspx" />
     <Content Include="Account\PasswordUpdate.aspx" />
+    <Content Include="data_yb.aspx" />
     <Content Include="extjs\ext-all.js" />
     <Content Include="extjs\ext-fineui.js" />
     <Content Include="extjs\ext-part1.js" />
@@ -3403,6 +3404,7 @@
     <Content Include="Infor-Data\Program.aspx" />
     <Content Include="Infor-Data\StuImport.aspx" />
     <Content Include="login.aspx" />
+    <Content Include="login_mobile.aspx" />
     <Content Include="packages.config" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -5182,6 +5184,13 @@
     </Compile>
     <Compile Include="DataControl.cs" />
     <Compile Include="Common.cs" />
+    <Compile Include="data_yb.aspx.cs">
+      <DependentUpon>data_yb.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="data_yb.aspx.designer.cs">
+      <DependentUpon>data_yb.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Default_f.aspx.cs">
       <DependentUpon>Default_f.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -5288,6 +5297,13 @@
     <Compile Include="login.aspx.designer.cs">
       <DependentUpon>login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="login_mobile.aspx.cs">
+      <DependentUpon>login_mobile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login_mobile.aspx.designer.cs">
+      <DependentUpon>login_mobile.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ClassData\_ClassData.aspx.cs">
       <DependentUpon>_ClassData.aspx</DependentUpon>
@@ -5303,6 +5319,7 @@
     <Compile Include="ClassData\test.aspx.designer.cs">
       <DependentUpon>test.aspx</DependentUpon>
     </Compile>
+    <Compile Include="UserAuth.ashx.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="extjs\src\" />

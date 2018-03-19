@@ -29,10 +29,13 @@
 
         #header .pro a {
             font-weight: bold;
-            font-size: 12px;
+            font-size: 16px;
             text-decoration: none;
             line-height: 50px;
             margin-left: 10px;
+        }
+        #header .pro a:hover{
+            color:skyblue;
         }
 
         #header .pro {
@@ -210,12 +213,12 @@
                                                            <f:ContentPanel ID="ContentPanel2" ShowBorder="false" BodyPadding="10px" ShowHeader="false" AutoScroll="true"
                                             runat="server">
 
-                                            <h1>工时信息管理</h1>
+                                            <h1 id="h1text"></h1>
                                             
                                           <h2>  <f:Label ID="handler" Label="操作员" Text="" runat="server"></f:Label></h2>
                                             
                                             <br />
-                                          <f:Button ID="btnPasswordUpdate" Text="修改密码" OnClick="btnPasswordUpdate_Click"  runat="server" Icon="BasketEdit"></f:Button>
+                                          <f:Button ID="btnPasswordUpdate" Text="修改密码"  runat="server" Icon="BasketEdit"></f:Button>
                                             
                                         </f:ContentPanel>
                                                     </Items>
@@ -266,10 +269,10 @@
                 <f:Region ID="bottomPanel" RegionPosition="Bottom" ShowBorder="false" ShowHeader="false" EnableCollapse="false" runat="server" Layout="Fit">
                     <Items>
                         <f:ContentPanel ID="ContentPanel3" runat="server" ShowBorder="false" ShowHeader="false">
-                            <table class="bottomtable">
+                            <table class="bottomtable" id="table">
                                 <tr>
-                                    <td style="width: 300px;">&nbsp;版本:2017.09.01&nbsp;&nbsp; </td>
-                                    <td style="text-align: center;">Copyright  &copy;&nbsp; @IMAW 信息管理协会  2014-2017</td>
+                                    <td style="width: 300px;" id="text1"></td>
+                                    <td style="text-align: center;" id="text2" ></td>                                    
                                     <td style="width: 300px; text-align: right;">&nbsp;</td>
                                 </tr>
                                
@@ -286,9 +289,15 @@
     <script>
         var menuClientID = '<%= leftMenuTree.ClientID %>';
         var tabStripClientID = '<%= mainTabStrip.ClientID %>';
-
+        var date = new Date;
+        document.getElementById("h1text").innerHTML = date.getFullYear()+"年"+(date.getMonth()+1)+"月"+date.getDate()+"日";
+        document.getElementById("text1").innerHTML = " &nbsp;版本:2018.03.12&nbsp;&nbsp; ";
+        document.getElementById("text2").innerHTML = " IMAW 信息管理协会&copy;&nbsp;&nbsp;2014-" + date.getFullYear() + "&nbsp; All Rights Reserved ";
+      
         // 页面控件初始化完毕后，会调用用户自定义的onReady函数
         F.ready(function () {
+
+            
 
             var treeMenu = F(menuClientID);
             var mainTabStrip = F(tabStripClientID);

@@ -32,6 +32,7 @@ namespace WHMS
                 }
                 #endregion
                 bind();
+                btnPasswordUpdate.OnClientClick= window1.GetShowReference("Account/PasswordUpdate.aspx", "修改密码");
             }
 
         }
@@ -118,10 +119,10 @@ namespace WHMS
             }
         }
 
-        protected void btnPasswordUpdate_Click(object sender, EventArgs e)
-        {
-              window1.GetShowReference("../Account/PasswordUpdate","修改密码");
-        }
+        //protected void btnPasswordUpdate_Click(object sender, EventArgs e)
+        //{
+        //      window1.GetShowReference("Account/PasswordUpdate.aspx","修改密码");
+        //}
         protected void HandlerName()
         {
             string sqlstr = "select StuName from Student where StuID="+Session["ID"];
@@ -142,6 +143,9 @@ namespace WHMS
             DataTable dt = Common.datatable(sql);
             grid.DataSource = dt;
             grid.DataBind();
+
+
+            
         }
         #endregion
         protected void gridview_PageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
