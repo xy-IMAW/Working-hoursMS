@@ -131,7 +131,7 @@ namespace WHMS.Infor_Data
         {
             string year = DDL.SelectedItem.Value;
             
-            string sqlstr = "select Program,SySe,convert(varchar(12),Date,111) from ProgramList where SySe like '" + year + "%'";
+            string sqlstr = "select Program,SySe,Date from ProgramList where SySe like '" + year + "%'";
             DataTable dt = Common.datatable(sqlstr);
             gridExample.DataSource = dt;
             gridExample.DataBind();
@@ -152,65 +152,86 @@ namespace WHMS.Infor_Data
         //添加活动
         protected void btnAdd_Click(object sender, EventArgs e)
         {
-            if (date.SelectedDate != null)
+            try
             {
-                //查重
-                bool flag = true;//标志是否重复
-
-                string sqlstr = "select Program from ProgramList where SySe like '" + selectSy.SelectedItem.Text + "%'";
-                Common.Open();
-                SqlDataReader reader = Common.ExecuteRead(sqlstr);
-                while (flag)
+                if (date.SelectedDate != null)
                 {
-                    int a = 0;//标志是否进行了下面的循环
-                    while (reader.Read())
+                    //查重
+                    bool flag = true;//标志是否重复
+
+                    string sqlstr = "select Program from ProgramList where SySe like '" + selectSy.SelectedItem.Text + "-" + selectSe.SelectedItem.Text + "%'";
+                    Common.Open();
+                    SqlDataReader reader = Common.ExecuteRead(sqlstr);
+                    while (flag)
                     {
-                        string name = reader.GetString(reader.GetOrdinal("Program"));
-                        if (name == selectPro.SelectedItem.Text)
+                        int a = 0;//标志是否进行了下面的循环
+                        while (reader.Read())
                         {
+                            string name = reader.GetString(reader.GetOrdinal("Program"));
+                            if (name == selectPro.SelectedItem.Text)
+                            {
 
-                            Common.close();
-                            flag = false;//该学年有重复
-                            Alert.Show("该活动已存在！", "错误", MessageBoxIcon.Error);
-                            break;
+                                Common.close();
+                                flag = false;//该学年有重复
+                                Alert.Show("该活动已存在！", "错误", MessageBoxIcon.Error);
+                                break;
+                            }
+                            a++;
                         }
-                        a++;
+                        if (a == 0)
+                        {
+                            break;//没有重复
+                        }
                     }
-                    if (a == 0)
+                    if (flag)//不重复
                     {
-                        break;//没有重复
+                        Common.close();
+                        string sqlstr2 = "insert into ProgramList (Program,SySe,Date) values ('" + selectPro.SelectedItem.Text + "','" + selectSy.SelectedItem.Text + "-" + selectSe.SelectedItem.Text + "','" + date.SelectedDate.Value + "')";
+                        Common.ExecuteSql(sqlstr2);
+                        Alert.Show("添加成功", "提示信息", MessageBoxIcon.Information);
+                    }
+                    else//重复
+                    {
+                        Common.close();//任何情况结束后都要关闭连接
+                        Alert.Show("该活动已在活动表中", "错误", MessageBoxIcon.Error);
                     }
                 }
-                if (flag)//不重复
+                else
                 {
-                    Common.close();
-                    string sqlstr2 = "insert into ProgramList (Program,SySe,Date) values ('" + selectPro.SelectedItem.Text + "','" + selectSy.SelectedItem.Text + "-" + selectSe.SelectedItem.Text + "','" + date.SelectedDate.Value + "')";
-                    Common.ExecuteSql(sqlstr2);
-                    Alert.Show("添加成功", "提示信息", MessageBoxIcon.Information);
-                }
-                else//重复
-                {
-                    Common.close();//任何情况结束后都要关闭连接
-                    Alert.Show("该活动已在活动表中", "错误", MessageBoxIcon.Error);
+                    Alert.Show("请选择日期!");
                 }
             }
-            else {
-                Alert.Show("请选择日期!");
+            catch(Exception ex)
+            {
+                Alert.Show(ex.Message);
+            }
+            finally
+            {
+                Bind();
             }
         }
         //删除活动
         protected void btnDelete_Click(object sender, EventArgs e)
         {
-            if (gridExample.SelectedRowIndex<0) {
-                Alert.Show("请选择一项进行删除", "警告", MessageBoxIcon.Warning);
+            try
+            {
+                if (gridExample.SelectedRowIndex < 0)
+                {
+                    Alert.Show("请选择一项进行删除", "警告", MessageBoxIcon.Warning);
 
+                }
+                else
+                {
+
+                    string sqlstr = "delete from ProgramList where Program='" + gridExample.SelectedRow.Values[1] + "'and SySe='" + gridExample.SelectedRow.Values[2] + "'";
+                    Common.ExecuteSql(sqlstr);
+                    Bind();
+                    Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+                }
             }
-            else {
-
-                string sqlstr = "delete from ProgramList where Program='" + gridExample.SelectedRow.Values[1] + "'and Date='" + gridExample.SelectedRow.Values[3] + "'";
-                Common.ExecuteSql(sqlstr);
-                Bind();
-                Alert.Show("删除成功", "信息", MessageBoxIcon.Information);
+            catch(Exception ex)
+            {
+                Alert.Show(ex.Message);
             }
         }
         //添加活动到总表

@@ -77,6 +77,8 @@ namespace WHMS.Infor_Data
             list2.Add("2");
             DL2.DataSource = list2;
             DL2.DataBind();
+            DL1.SelectedIndex = 0;
+            DL2.SelectedIndex = 0;
         }
         #region 学生信息查询
         //BindGrid1 数据库分页 查询年级学生信息，按班级和学号排序
@@ -141,12 +143,25 @@ namespace WHMS.Infor_Data
             }
             else
             {
-                string id = gridExample.SelectedRow.Values[0].ToString();//选中行的第一列为ID
+                try
+                {
+                    string syse = gridExample.SelectedRow.Values[1].ToString();//选中行的第一列为ID
+                    string pro = gridExample.SelectedRow.Values[2].ToString();//选中的活动名
 
-                string sqlStr = "delete from Working_hours where SySe= '" + id + " '";
-                Common.ExecuteSql(sqlStr);
-                this.BindGrid3();
-                Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
+                    string sqlStr = "delete from [Working_hoursInfor] where SySe= '" + syse + " 'and StuID ='" + Session["Sid"] + "'and Program ='" + pro + "'";
+                    Common.ExecuteSql(sqlStr);
+                    this.BindGrid3();
+                    Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
+                }
+                catch(Exception ex)
+                {
+                    Alert.Show(ex.Message);
+                }
+                finally
+                {
+                    BindGrid3();
+                    Search();
+                }
             }
         }
 
@@ -161,6 +176,10 @@ namespace WHMS.Infor_Data
         }
         #region select_handle
         protected void btnSelect_Click(object sender, EventArgs e)
+        {
+            Search();
+        }
+        private void Search()
         {
             if (txtId.Text != "")
             {
@@ -186,7 +205,7 @@ namespace WHMS.Infor_Data
                         DataTable dt = Common.datatable(sqlStr);
                         //gridExample.DataSource = dt;
                         //gridExample.DataBind();
-                           BindGrid1(sqlStr);
+                        BindGrid1(sqlStr);
                         count = OutPutSummaryData(dt);
                         hourcount.Text = "获得的总工时为：" + count;
                     }
