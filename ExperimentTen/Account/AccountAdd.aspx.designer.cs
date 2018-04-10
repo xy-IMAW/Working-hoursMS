@@ -40,13 +40,22 @@ namespace WHMS.Account {
         protected global::FineUI.Panel panel2;
         
         /// <summary>
-        /// Search 控件。
+        /// panel1 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUI.Form Search;
+        protected global::FineUI.Panel panel1;
+        
+        /// <summary>
+        /// grid2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUI.Grid grid2;
         
         /// <summary>
         /// txbStuID 控件。
@@ -65,24 +74,6 @@ namespace WHMS.Account {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUI.Button btnselect;
-        
-        /// <summary>
-        /// panel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Panel panel1;
-        
-        /// <summary>
-        /// grid2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUI.Grid grid2;
         
         /// <summary>
         /// drop 控件。

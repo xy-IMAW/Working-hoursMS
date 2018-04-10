@@ -204,7 +204,7 @@ namespace WHMS.Infor_Data
                 //Common.SySe = DL3.SelectedText.ToString();
                 Session["Class"]= Grid3.SelectedRow.Values[2].ToString();
                 Session["SySe"]= DL3.SelectedText.ToString();
-                PageContext.RegisterStartupScript(window1.GetShowReference("ClassData.aspx"));
+                PageContext.RegisterStartupScript(window1.GetShowReference("ClassData.aspx","班级工时"));
          
             }
          
@@ -216,7 +216,7 @@ namespace WHMS.Infor_Data
             //Common.SySe = DL3.SelectedValue.ToString();
             Session["grade"]= Convert.ToInt32(SelectGrade.SelectedValue);
             Session["SySe"]= DL3.SelectedValue.ToString();
-            PageContext.RegisterStartupScript(window1.GetShowReference("GradeData.aspx"));
+            PageContext.RegisterStartupScript(window1.GetShowReference("GradeData.aspx","年级工时"));
     
         }
 

@@ -14,21 +14,12 @@
          <f:PageManager ID="PageManager_01" AutoSizePanelID="panel2"  runat="server" > </f:PageManager>             
         <f:Panel ID="panel2" runat="server">
            <Items>
-                <f:Form ID="Search" runat="server">
-                    <Rows>
-                        <f:FormRow>
-                                  <Items>
-                                    <f:TextBox ID="txbStuID" Label="学号" runat="server" Width="80px"> </f:TextBox>
-                                    <f:Button ID="btnselect" Text="查询" runat="server" OnClick="btnselect_Click"> </f:Button>
-                                  </Items>  
-                        </f:FormRow>
-                    </Rows>
-                </f:Form>
+               
                 <f:Panel ID="panel1" runat="server">
                     <Items>
                         <f:Grid ID="grid2" Title="" ShowBorder="false" ShowHeader="false"
                     DataKeyNames="StuID" EnableCollapse="false" EnableCheckBoxSelect="true" 
-                    EnableMultiSelect="false"  runat="server" Height="200px">
+                    EnableMultiSelect="false"  runat="server" Height="">
                             <Columns>
                               <f:BoundField Width="150px" ColumnID="StuID" SortField="StuID" DataField="StuID"
                                     TextAlign="Center" HeaderText="学号"></f:BoundField>
@@ -41,16 +32,20 @@
                                 </Columns>
                             <Toolbars>
                                 <f:Toolbar runat="server">
-                                    <Items>
+                                     <Items>
+                                    <f:TextBox ID="txbStuID" Label="学号" runat="server" Width="300px" LabelAlign="Right"> </f:TextBox>
+                                    <f:Button ID="btnselect" Text="查询" runat="server" OnClick="btnselect_Click"> </f:Button>
+                                  
                                         <f:DropDownList ID="drop" runat="server">
                                             <f:ListItem  Text="管理员" Value="管理员"/>
                                             <f:ListItem  Text="组织委员" Value="组织委员"/>
                                         </f:DropDownList>
+                                        <f:Button ID="btnAdd2" Text="添加" runat="server" OnClick="btnAdd2_Click" Width="80px"></f:Button> 
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
                             </f:Grid>
-                        <f:Button ID="btnAdd2" Text="添加" runat="server" OnClick="btnAdd2_Click" Width="80px"></f:Button> 
+                        
                     </Items>
                 </f:Panel>
             </Items>

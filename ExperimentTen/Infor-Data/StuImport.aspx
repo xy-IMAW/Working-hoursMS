@@ -16,13 +16,13 @@
             <Toolbars>
                 <f:Toolbar runat="server">
                     <Items>
-                      <f:FileUpload ID="FileUpload1" runat="server" Label="文件" />
+                      <f:FileUpload ID="FileUpload1" runat="server" Label="文件" ColumnWidth="200px" ShowRedStar="true" />
                        
                         
                     
                           
-                         <f:Button ID="btn" runat="server" OnClick="btn_Click" Text="上传" />   
-               <f:Button ID="btn1" runat="server" Text="更新" OnClick="btn1_Click" />    
+                         <f:Button ID="btn" runat="server" OnClick="btn_Click" Text="上传" Width="70px" />   
+               <f:Button ID="btn1" runat="server" Text="更新" OnClick="btn1_Click" Width="70px" />    
                     </Items>
                 </f:Toolbar>               
             </Toolbars>

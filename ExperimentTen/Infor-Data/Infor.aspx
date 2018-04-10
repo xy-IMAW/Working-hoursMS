@@ -25,7 +25,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
     text-shadow: 0 1px 1px black;
     color:white;
     font-weight: bold;
-               width:100px;
+               width:120px;
             }
             .mybutton:active{
                 box-shadow: .05em .1em .2em rgba(0,0,0,.6) inset;
@@ -78,7 +78,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                                            <f:Button ID="btnImport" Icon="PageGo" runat="server" Text="导入名单"></f:Button>
                                             <f:ContentPanel runat="server">
                                  <div class="mypanel">
-                                 <asp:Button ID="DowmLoad" Text="下载班级模板" runat="server" CssClass="mybutton" OnClick="btnDownLoad_Click"/>
+                                 <asp:Button ID="DowmLoad" Text="下载学生名单模板" runat="server" CssClass="mybutton" OnClick="btnDownLoad_Click"/>
                                  </div>
                              </f:ContentPanel>
                                          
