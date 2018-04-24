@@ -25,14 +25,14 @@
             background-color:transparent;
         }
         .btnlog{
-            width: 3.8vw;
-            height: 1.9vw;
-            font-size: 1.2px;
+            width: 72.9531px;
+            height: 36.4688px;
+            font-size: 12px;
             font-family: 微软雅黑;
-            letter-spacing: 0.5vw;
-            padding-left: 1vw;
-            border-radius:0.4vw;
-            border: 0.03vw solid #2576A8;
+            letter-spacing: 9.6px;
+            padding-left: 19.2px;
+            border-radius: 7.68px;
+            border: 0.5625px solid #2576A8;
             background: -webkit-linear-gradient(top,#66B5E6,#2e88c0);
             background: -moz-linear-gradient(top,#66B5E6,#2e88c0);
             background: linear-gradient(top,#66B5E6,#2e88c0);
@@ -51,19 +51,21 @@
 }
     </style>
 </head>
-<body style="width:100%;height:100% ;background-image:url(image/login.jpg);background-repeat:no-repeat; background-size:100%,100%;  position:absolute;">
+<body style="width:100%;height:100% ;background-image:url(image/login.jpg);; background-size:100%,100%;  position:absolute;">
     <form id="form1" runat="server">
         <f:PageManager runat="server" />     
             <!--登陆框-->  
-            <div style="background-color:rgba(198,218,253,0.43); margin:15vw auto; width:30vw; height:15vw; border-radius:1vw;">
-                <p style="text-align: center; font-family: 宋体; font-size: 1.3vw;line-height:2.8vw; margin-bottom:-0.55vw;">自动化青协工时统计</p>
+            <div style="background-color:rgba(198,218,253,0.43); margin: 288px auto; width:576px; height:288px; border-radius:19.2px;">
+                <p style="text-align: center; font-family: 宋体; font-size: 24.96px;line-height:53px; margin-bottom:-10.56px;">自动化青协工时统计</p>
                 <hr />
                 <!--左侧logo图-->
-                <div id="img_icon" style="float:left;width:12vw;"><img src="image/icon.jpg" style="width:8vw;height:8vw;background-repeat:no-repeat; background-size:cover;
-margin-left:2vw;margin-right:5vw; margin-top:1.2vw;"/></div>
+                <div id="img_icon" style="float:left;width:230.391px;">
+                    <img src="image/icon.jpg" style="width:153.594px ;height:153.594px ;background-repeat:no-repeat; background-size:cover;
+                            margin-left:38.4px ;margin-right:96px; margin-top:23.04px;"/>
+                </div>
                 <!--右侧登陆栏-->
-                <div id="login" style="width:18vw; height:10vw; float:right; margin-top:2vw; font-size:1vw; font-family:微软雅黑">
-                    账号&nbsp&nbsp<asp:TextBox ID="tbxStuID" CssClass="textbox" runat="server" MaxLength="13" Wrap="False" Rows="1" Columns="20" ></asp:TextBox>
+                <div id="login" style="width:345.594px; height:192px; float:right; margin-top:38.4px; font-size:19.2px; font-family:微软雅黑">
+                    账号&nbsp&nbsp<asp:TextBox ID="tbxStuID" CssClass="textbox" runat="server" MaxLength="13" Wrap="False" Rows="1" Columns="20"  autofocus></asp:TextBox>
                     <br /><br />
                     密码&nbsp&nbsp<asp:TextBox ID="tbxPassword" CssClass="textbox" runat="server" MaxLength="13" Wrap="False" TextMode="Password" Rows="1" Columns="20"></asp:TextBox>
 

@@ -28,7 +28,7 @@ namespace WHMS.Infor_Data
                 if (Convert.ToString(Session["Sid"]) != "")
                 {
                     txtId.Text = Session["Sid"].ToString();
-                    string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID=" + Session["Sid"].ToString();
+                    string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"'";
                     DataSet myds = Common.dataSet(sqlStr);
                     gridExample.DataSource = myds;
                     gridExample.DataBind();
@@ -185,7 +185,7 @@ namespace WHMS.Infor_Data
             {
                 t1 = DL1.SelectedItem.Text;//学年
                 t2 = DL2.SelectedItem.Text;//学期
-                Session["Sid"] = txtId.Text;
+               // Session["Sid"] = txtId.Text;
                 int count = 0;
                 StuID.Text = txtId.Text;
                 string sql = "select StuName from Student where StuID='" + txtId.Text + "'";
@@ -201,7 +201,7 @@ namespace WHMS.Infor_Data
                         DataTable name = Common.datatable(sql);
                         StuName.Text = name.Rows[0][0].ToString();
                         DL2.ForceSelection = true;
-                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID=" + Session["Sid"].ToString();
+                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + txtId.Text + "'";
                         DataTable dt = Common.datatable(sqlStr);
                         //gridExample.DataSource = dt;
                         //gridExample.DataBind();
@@ -216,7 +216,7 @@ namespace WHMS.Infor_Data
                             Common.close();
                             DataTable name = Common.datatable(sql);
                             StuName.Text = name.Rows[0][0].ToString();
-                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where (SySe like'%" + t1 + "%') and StuID =" + Session["Sid"].ToString();
+                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where SySe like('%" + t1 + "%') and StuID ='" + txtId.Text+"'";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -230,7 +230,7 @@ namespace WHMS.Infor_Data
                             Common.close();
                             DataTable name = Common.datatable(sql);
                             StuName.Text = name.Rows[0][0].ToString();
-                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where (SySe like'" + t1 + "-" + t2 + "') and StuID =" + Session["Sid"].ToString();
+                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where SySe like('" + t1 + "-" + t2 + "') and StuID = '" + txtId.Text+"'";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();

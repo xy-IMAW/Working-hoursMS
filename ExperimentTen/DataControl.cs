@@ -69,9 +69,21 @@ namespace WHMS
             string Class;
             string Grade;
   
-            Grade = grid.Rows[0].Values[0].ToString();//以第一个班级的年级为准
-            string sql = "delete from Class where Grade='" + Grade + "'";//删除同年级的班级
-            Common.ExecuteSql(sql);
+           // Grade = grid.Rows[0].Values[0].ToString();//以第一个班级的年级为准
+
+            DataTable grade = new DataTable();//更新的年级表
+            grade.Columns.Add("Grade", typeof(string));
+            DataColumn[] column = new DataColumn[] { grade.Columns["Grade"] };
+            grade.PrimaryKey = column;
+            for (int i=0;i<grid.Rows.Count;i++) {
+                if (!grade.Rows.Contains(grid.Rows[i].Values[0].ToString()))
+                {
+                    grade.Rows.Add(grid.Rows[i].Values[0].ToString());
+                    string sql = "delete from Class where Grade='" + grid.Rows[i].Values[0].ToString() + "'";//删除同年级的班级
+                    Common.ExecuteSql(sql);
+                }
+            }
+
 
             for (int i = 0; i < grid.Rows.Count; i++)
             {
@@ -130,7 +142,7 @@ namespace WHMS
                 }
                 Common.close();
                 //未重复才添加
-                if (NoRepeat)
+                if (NoRepeat&&StuID!="")
                 {
                     string sqlstr = "insert into Student (StuID,StuName,Class,Sex,Other) values ('" + StuID + "','" + StuName + "','" + Class+"','" +Sex+"','"+Other+"')";//插入新数据
                     Common.ExecuteSql(sqlstr);
@@ -177,7 +189,7 @@ namespace WHMS
                 SySe = grid.Rows[i].Values[4].ToString();
                 Date = grid.Rows[i].Values[5].ToString();
 
-                string sqlstr1 = "select StuID from Working_hours where( Program ='" + Program+"' and SySe ='"+SySe+"' and Date = '"+Date+"')";
+                string sqlstr1 = "select StuID from [Working_hoursInfor] where( Program ='" + Program+"' and SySe ='"+SySe+"' and Date = '"+Date+"')";
                 Common.Open();
                 SqlDataReader re = Common.ExecuteRead(sqlstr1);
                 while (re.Read())
@@ -193,10 +205,10 @@ namespace WHMS
                 }
                 Common.close();
                 //未重复才添加
-                if (NoRepeat)
+                if (NoRepeat&&Working_hours!="")
                 {
 
-                    string sqlstr = "insert into Working_hoursInfor (StuID,StuName,Program,Working_hours,SySe,Date) values ('" + StuID + "','" + StuName + "','" + Program + "','" + Working_hours +"','"+SySe+"','"+Date+ "')";//插入新数据
+                    string sqlstr = "insert into [Working_hoursInfor] (StuID,StuName,Program,Working_hours,SySe,Date) values ('" + StuID + "','" + StuName + "','" + Program + "','" + Working_hours +"','"+SySe+"','"+Date+ "')";//插入新数据
                     Common.ExecuteSql(sqlstr);
                     flag2++;
                 }

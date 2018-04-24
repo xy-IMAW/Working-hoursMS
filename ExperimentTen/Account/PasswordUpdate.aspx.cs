@@ -57,7 +57,7 @@ namespace WHMS.Account
                 {
                     if (txtPwd1.Text == txtPwd2.Text)
                     {
-                        string sqlstring = "update Account set Password ='" + txtPwd2.Text + "' where StuID =" + Session["ID"];
+                        string sqlstring = "update Account set Password ='" + txtPwd2.Text + "' where StuID ='" + Session["ID"]+"'";
                         Common.ExecuteSql(sqlstring);
                         Alert.Show("修改成功", "提示", MessageBoxIcon.Information);
                       

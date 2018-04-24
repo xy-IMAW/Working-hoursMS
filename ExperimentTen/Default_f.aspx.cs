@@ -125,7 +125,7 @@ namespace WHMS
         //}
         protected void HandlerName()
         {
-            string sqlstr = "select StuName from Student where StuID="+Session["ID"];
+            string sqlstr = "select StuName from Student where StuID='"+Session["ID"]+"'";
             Common.Open();
             SqlDataReader re = Common.ExecuteRead(sqlstr);
             if (re.Read())
@@ -135,11 +135,11 @@ namespace WHMS
             }
             Common.close();
         }
-
+        //查询登录表
         protected void bind()
         {
 
-            string sql = "select * from Account_Login ";
+            string sql = "select * from Account_Login order by Date desc";
             DataTable dt = Common.datatable(sql);
             grid.DataSource = dt;
             grid.DataBind();

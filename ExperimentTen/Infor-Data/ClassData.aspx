@@ -44,22 +44,13 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
             <asp:Button ID="btn1" runat="server" Text="导出" CssClass="mybutton" OnClick="Button2_Click" />
         </div>
                                        
-    <f:PageManager ID="pagemanager1" runat="server"  EnableFStateValidation="false" />
-           <f:panel ID="panel1" runat="server">
-               <Items>
-                    <f:Panel ID="panel2" runat="server">
-                       <Items>
-                           <f:ContentPanel runat="server"> 
-                               <div style="align-content:center;align-items:center;padding-left:150px;padding-top:10px">
-                                    <asp:GridView ID="GridView1" runat="server"  ShowFooter="true" ShowHeader="true" OnRowCreated="GridView1_RowCreated" >                              
-                           </asp:GridView>  
-                               </div>
-                                                                                                    
-                          </f:ContentPanel>                                                       
-                       </Items>
-                   </f:Panel>
-               </Items>
-            </f:panel>
+    <f:PageManager ID="pagemanager1" runat="server"  EnableFStateValidation="false" />            
+          <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="" EnableCollapse="false" runat="server" 
+            DataKeyNames="Id" AutoScroll="true" Width="1507PX">
+            </f:Grid>
+                                                                                 
+                       
+               
        </div>
     </form>
   </body>

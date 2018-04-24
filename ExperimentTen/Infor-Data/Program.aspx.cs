@@ -131,7 +131,7 @@ namespace WHMS.Infor_Data
         {
             string year = DDL.SelectedItem.Value;
             
-            string sqlstr = "select Program,SySe,Date from ProgramList where SySe like '" + year + "%'";
+            string sqlstr = "select Program,SySe,Date from Program where SySe like '" + year + "%'";
             DataTable dt = Common.datatable(sqlstr);
             gridExample.DataSource = dt;
             gridExample.DataBind();

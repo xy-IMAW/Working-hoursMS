@@ -12,26 +12,28 @@
  
         
         <div>
+              <asp:Button ID="btn1" runat="server" OnClick="btnout_Click" Text="导出文件" />
             <f:PageManager runat="server" />
+      
+          
+                
+      
+          
+                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="表格" EnableCollapse="false" runat="server"
+            DataKeyNames="Id">
+                     <Toolbars>
+                         <f:Toolbar runat="server">
+                             <Items>
+                <f:Button ID="btnout" runat="server" OnClick="btnout_Click" Text="导出文件"></f:Button>
+                             </Items>
 
-         
-            <f:Panel runat="server">
-                <Toolbars>
-                    <f:Toolbar runat="server">
-                        <Items>
-                            <f:FileUpload ID="fileupload" runat="server" Label="上传"></f:FileUpload>
-                            <f:Button ID="btn2" Text="窗体" OnClick="btn1_Click" runat="server"></f:Button>
-                        </Items>
-                    </f:Toolbar>
-                </Toolbars>
-                <Items>
-                    <f:ContentPanel runat="server" BodyPadding="100px" RegionPosition="Center" >
-                         <asp:GridView ID="GridView1" runat="server" OnRowCreated="GridView1_RowCreated"/>
-                    </f:ContentPanel>
-                    <f:Grid ID="grid" runat="server" ShowBorder="true" />
-                </Items>
-            </f:Panel>
-           <f:Window ID="window1" Hidden="true" EnableIFrame="true" runat="server" EnableClose="true"  Width="800px" Height="600px" Target="Top"  EnableMaximize="true" ></f:Window>
+                         </f:Toolbar>
+                     </Toolbars>
+                     </f:Grid>
+             <br />
+             <br />
+             <br />
+
 
         </div>
     </form>

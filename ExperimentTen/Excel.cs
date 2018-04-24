@@ -793,11 +793,13 @@ namespace WHMS
         /// <param name="strHeaderText">表头文本</param>
         public static MemoryStream Export(DataTable dtSource, string strHeaderText)
         {
-            string sql1 = "select distinct Program,Date from [Working_hoursInfor] where SySe like '%" + System.Web.HttpContext.Current.Session["SySe"] + "%'";
-            DataTable program = Common.datatable(sql1);
-
+            string sql1 = "select distinct Program,Date from Program where SySe like '%" + System.Web.HttpContext.Current.Session["SySe"] + "%'";
+            DataTable pro = Common.datatable(sql1);//统计列数用
+            string sql2 = "select distinct Program from Program where SySe like '%" + System.Web.HttpContext.Current.Session["SySe"] + "%'";
+            DataTable program = Common.datatable(sql2);//活动表
+            //新建文件
             HSSFWorkbook workbook = new HSSFWorkbook();
-            ISheet sheet = workbook.CreateSheet("sheet1");
+            ISheet sheet = workbook.CreateSheet("sheet1");//新建sheet
 
             #region 右击文件 属性信息
          /*   {
@@ -841,7 +843,7 @@ namespace WHMS
                    */
             #endregion
             int rowIndex = 0;
-            foreach (DataRow row in dtSource.Rows)
+            for (int t=0;t<dtSource.Rows.Count;t++)
             {
                 #region 新建表，填充表头，填充列头，样式
                 if (rowIndex == 65535 || rowIndex == 0)
@@ -856,8 +858,8 @@ namespace WHMS
 
                         IRow row1 = sheet.CreateRow(0);
                         ICell cell = row1.CreateCell(0);
-                        cell.SetCellValue(strHeaderText);
-                        sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, program.Rows.Count + 3));//合并列  该方法的参数次序是：开始行号，结束行号，开始列号，结束列号。  
+                        cell.SetCellValue(strHeaderText);//赋值标题行
+                        sheet.AddMergedRegion(new CellRangeAddress(0, 0, 0, pro.Rows.Count + 3));//合并列  该方法的参数次序是：开始行号，结束行号，开始列号，结束列号。  
                                                                                                      //  row1.Height = 30 * 30; //行高  
                         cell.CellStyle = HeadStyle(workbook);
 
@@ -877,35 +879,70 @@ namespace WHMS
                         sheet.AddMergedRegion(new CellRangeAddress(1, 2, 2, 2));
                         cell4.CellStyle = Sub_HeadStyle(workbook);
 
-                        ICell cell5 = row2.CreateCell(program.Rows.Count + 3);
+                        ICell cell5 = row2.CreateCell(pro.Rows.Count + 3);
                         cell5.SetCellValue("合计");
-                        sheet.AddMergedRegion(new CellRangeAddress(1, 2, program.Rows.Count + 3, program.Rows.Count + 3));
+                        sheet.AddMergedRegion(new CellRangeAddress(1, 2, pro.Rows.Count + 3, pro.Rows.Count + 3));
                          cell5.CellStyle = Sub_HeadStyle(workbook);
-                      
-                        //活动列的生成
-
-                        for (int i = 3, j = 0; j < program.Rows.Count; i++, j++)
-                        {
-                            ICell cell_1 = row2.CreateCell(i);
-
-                            cell_1.SetCellValue(Convert.ToDateTime(program.Rows[j][1]).Date);
-                         
-                             cell_1.CellStyle = Sub_HeadStyle(workbook);
-                            ICellStyle cstyle = cell_1.CellStyle;
-                            cstyle.Alignment = HorizontalAlignment.Center;
-                            cstyle.DataFormat = dateStyle.DataFormat;
-                            
-                           // cell_1.CellStyle = dateStyle;
-
-                        }
 
                         IRow row3 = sheet.CreateRow(2);
-                        for (int i = 3, j = 0; j < program.Rows.Count; i++, j++)
+                        //活动列的生成
+                        //先生成活动列，在根据活动生成日期列
+                        #region 活动列
+                        /* for (int i = 3, j = 0; j < program.Rows.Count; i++, j++)
+                         {
+                             ICell cell_1 = row2.CreateCell(i);
+
+                             cell_1.SetCellValue(Convert.ToDateTime(program.Rows[j][1]).Date);
+
+                              cell_1.CellStyle = Sub_HeadStyle(workbook);
+                             ICellStyle cstyle = cell_1.CellStyle;
+                             cstyle.Alignment = HorizontalAlignment.Center;
+                             cstyle.DataFormat = dateStyle.DataFormat;
+
+
+
+                         }
+
+                         IRow row3 = sheet.CreateRow(2);
+                         for (int i = 3, j = 0; j < program.Rows.Count; i++, j++)
+                         {
+                             ICell cell_2 = row3.CreateCell(i);
+                             cell_2.SetCellValue(program.Rows[j][0].ToString());
+                            cell_2.CellStyle = Sub_HeadStyle(workbook);
+                         }*/
+                        #endregion
+                        for (int i = 3,j=0; i < pro.Rows.Count+3 && j<program.Rows.Count;j++)
                         {
-                            ICell cell_2 = row3.CreateCell(i);
-                            cell_2.SetCellValue(program.Rows[j][0].ToString());
-                           cell_2.CellStyle = Sub_HeadStyle(workbook);
+                            string sql3 = "select Date from Program where SySe like '%" + System.Web.HttpContext.Current.Session["SySe"] + "%' and Program = '"+program.Rows[j][0].ToString()+"'";
+                            DataTable date = Common.datatable(sql3);
+
+                            ICell cell_1 = row2.CreateCell(i);
+                            cell_1.SetCellValue(program.Rows[j][0].ToString());
+                            sheet.AddMergedRegion(new CellRangeAddress(1, 1, i, i + date.Rows.Count-1));//活动列跨列
+                            //设置活动列下的日期列
+                            
+                            for (int k = i,m=0; k<i+date.Rows.Count && m<date.Rows.Count;m++,k++)
+                            {
+                                ICell cell_2 = row3.CreateCell(k);
+                                cell_2.SetCellValue(Convert.ToDateTime( date.Rows[m][0].ToString()).Date);//日期赋值
+                                //设置单元格格式
+                                cell_2.CellStyle = Sub_HeadStyle(workbook);                               
+                                ICellStyle style = cell_2.CellStyle;
+                                style.Alignment = HorizontalAlignment.Center;
+                                style.DataFormat = dateStyle.DataFormat;//日期格式
+                            }
+                            //设置单元格格式
+                            cell_1.CellStyle = Sub_HeadStyle(workbook);
+                            ICellStyle cstyle = cell_1.CellStyle;
+                            cstyle.Alignment = HorizontalAlignment.Center;
+                            // cstyle.DataFormat = dateStyle.DataFormat;
+
+                            i = i + date.Rows.Count;
+
+
                         }
+
+                        
                     }
                     #endregion
 
@@ -922,20 +959,20 @@ namespace WHMS
                     }
                     #endregion
 
-                    rowIndex = 3;
+                    rowIndex = 3;//rowindex指向数据行的第一行
                 }
                 #endregion
 
 
                 #region 填充内容
                IRow dataRow = sheet.CreateRow(rowIndex);
-                foreach (DataColumn column in dtSource.Columns)
+                for (int i=0;i<dtSource.Columns.Count;i++)
                 {
-                    ICell newCell = dataRow.CreateCell(column.Ordinal);
+                    ICell newCell = dataRow.CreateCell(i);
 
-                    string drValue = row[column].ToString();
+                    string drValue = dtSource.Rows[t][i].ToString();
 
-                    switch (column.DataType.ToString())
+                    switch (dtSource.Columns[i].DataType.ToString())
                     {
                         case "System.String"://字符串类型
                             newCell.SetCellValue(drValue);

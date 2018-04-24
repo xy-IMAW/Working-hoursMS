@@ -165,7 +165,7 @@ namespace WHMS
                         Common.close();
                         DataTable name = Common.datatable(sql);
                         DL2.ForceSelection = true;
-                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID=" + Session["Sid"].ToString();
+                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"'";
                         DataTable dt = Common.datatable(sqlStr);
                         //gridExample.DataSource = dt;
                         //gridExample.DataBind();
@@ -178,7 +178,7 @@ namespace WHMS
                         {
                             Common.close();
                             DataTable name = Common.datatable(sql);
-                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where (SySe like'%" + t1 + "%') and StuID =" + Session["Sid"].ToString();
+                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where (SySe like'%" + t1 + "%') and StuID ='" + Session["Sid"].ToString()+"'";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -190,7 +190,7 @@ namespace WHMS
                         {
                             Common.close();
                             DataTable name = Common.datatable(sql);
-                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where (SySe like'" + t1 + "-" + t2 + "') and StuID =" + Session["Sid"].ToString();
+                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where (SySe like'" + t1 + "-" + t2 + "') and StuID ='" + Session["Sid"].ToString()+"'";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
