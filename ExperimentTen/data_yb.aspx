@@ -9,13 +9,12 @@
 </head>
 <body style="width:100%;">
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager_01" runat="server" AutoSizePanelID="panelMain"/>
+    <f:PageManager ID="PageManager_01" runat="server" AutoSizePanelID="gridExample"/>
                        
-          <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" EnableCollapse="true">
-            <Items>
-                <f:Grid ID="gridExample" Title="工时信息" ShowBorder="false" AllowPaging="false" ShowHeader="true" IsDatabasePaging="true"
-                    DataKeyNames="ID" EnableCollapse="false" PageSize="100"  PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
-                     runat="server" EnableSummary="true" SummaryPosition="Bottom" ForceFit="true">
+          
+                <f:Grid Height="600px" ID="gridExample" Title="工时信息" ShowBorder="false" ShowHeader="true" 
+                    DataKeyNames="ID" EnableCollapse="false"  AllowPaging="true" PageSize="20"   PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
+                    EnableMultiSelect="false"  runat="server" EnableSummary="true" SummaryPosition="Top" AutoScroll="true" ShowPagingMessage="false">
                    
                     <Toolbars>                        
                    
@@ -30,23 +29,27 @@
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
-                    <Columns>
-                          <f:TemplateField Width="50px" HeaderText="序号">
+                    <Columns>             
+                        <f:TemplateField Width="55px" HeaderText="序号" TextAlign="Center">
                                     <ItemTemplate>
-                                        <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex + 1 %>'></asp:Label>
+                                        <asp:Label ID="Label1" runat="server" Text='<%# Container.DataItemIndex + 1 %>' ></asp:Label>
                                     </ItemTemplate>
-                           </f:TemplateField>
-                        <f:BoundField Width="100px" ColumnID="SySe" SortField="SySe" DataField="SySe"
-                                    TextAlign="Center" HeaderText="学年学期"></f:BoundField>
-                        <f:BoundField Width="100px" ColumnID="Program" SortField="Program" DataField="Program"
+                           </f:TemplateField>             
+                       
+                        <f:BoundField Width="150px" ColumnID="Program" SortField="Program" DataField="Program"
                                     TextAlign="Center" HeaderText="志愿活动"></f:BoundField>
-                        <f:BoundField Width="60px" ColumnID="Working_hours" SortField="Working_hours" DataField="Working_hours"
+                        <f:BoundField Width="90px" ColumnID="Date" SortField="Date" DataField="Date"
+                                    TextAlign="Center" HeaderText="日期" DataFormatString="{0:yyyy-MM-dd}"></f:BoundField>
+                        <f:BoundField Width="" ColumnID="Working_hours" SortField="Working_hours" DataField="Working_hours"
                                     TextAlign="Center" HeaderText="工时"></f:BoundField>
-
                     </Columns>
                 </f:Grid>
-            </Items>
-        </f:Panel>
+            
     </form>
+    <!--
+         <f:BoundField Width="100px" ColumnID="SySe" SortField="SySe" DataField="SySe"
+                                    TextAlign="Center" HeaderText="学年学期"></f:BoundField>
+        -->
+
 </body>
 </html>

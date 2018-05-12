@@ -17,12 +17,12 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <f:PageManager ID="PageManager_01" AutoSizePanelID="panelMain" runat="server" />
+    <f:PageManager ID="PageManager_01" AutoSizePanelID="" runat="server" />
                        
           <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" EnableCollapse="true" Layout="Fit">
             <Items>
-                <f:Grid Height="750px" ID="gridExample" Title="工时信息" ShowBorder="false" ShowHeader="true" IsDatabasePaging="true"
-                    DataKeyNames="ID" EnableCollapse="false"  AllowPaging="true"   PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
+                <f:Grid Height="625px" ID="gridExample" Title="工时信息" ShowBorder="false" ShowHeader="true" 
+                    DataKeyNames="ID" EnableCollapse="false"  AllowPaging="true" PageSize="20"   PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
                     EnableMultiSelect="false"  runat="server" EnableSummary="true" SummaryPosition="Bottom">
                    
                     <Toolbars>                        
@@ -38,7 +38,7 @@
                                 </f:DropDownList>
                               <f:Button ID="btnSelect" Text="查询" runat="server" OnClick="btnSelect_Click" Icon="Zoom"></f:Button>
                                
-                                <f:Button ID="btnDelete" OnClick="btnDelete_Click3" Text="删除" Icon="Delete" runat="server" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？">
+                                <f:Button ID="btnDelete" OnClick="btnDelete_Click" Text="删除" Icon="Delete" runat="server" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？">
                                 </f:Button>
                                 <f:Button ID="Button1" EnableAjax="false" Icon="PageWhiteExcel" DisableControlBeforePostBack="false"  runat="server" Text="导出为Excel文件" OnClick="Button1_Click">
                                 </f:Button>
@@ -63,6 +63,8 @@
                                     TextAlign="Center" HeaderText="学年学期"></f:BoundField>
                         <f:BoundField Width="150px" ColumnID="Program" SortField="Program" DataField="Program"
                                     TextAlign="Center" HeaderText="志愿活动"></f:BoundField>
+                        <f:BoundField Width="150px" ColumnID="Date" SortField="Date" DataField="Date"
+                                    TextAlign="Center" HeaderText="日期" DataFormatString="{0:yyyy-MM-dd}"></f:BoundField>
                         <f:BoundField Width="150px" ColumnID="Working_hours" SortField="Working_hours" DataField="Working_hours"
                                     TextAlign="Center" HeaderText="获得工时"></f:BoundField>
 

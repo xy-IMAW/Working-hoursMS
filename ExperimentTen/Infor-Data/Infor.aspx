@@ -18,6 +18,8 @@
   background: -webkit-linear-gradient(top,#42a4e0,#2e88c0);
 background: -moz-linear-gradient(top,#42a4e0,#2e88c0);
 background: linear-gradient(top,#42a4e0,#2e88c0);
+filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#42a4e0',endColorStr='#2e88c0',gradientType='0');
+
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3em;
     box-shadow: 0 1px white inset;
@@ -107,7 +109,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
                        </Items>
                      </f:Panel>
                          <f:Window ID="window1" Title=""  EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
-            EnableResize="true" EnableClose="true" Target="Top" OnClose="window1_Close" IsModal="true" Width="550px" Height="450px" runat="server">
+            EnableResize="true" EnableClose="true" Target="Top"  IsModal="true" Width="550px" Height="450px" runat="server">
         </f:Window>                       
                         <f:Window ID="window3" Title="导入学生名单" EnableCollapse="true" Hidden="true" EnableIFrame="true"  CloseAction="HidePostBack" EnableMaximize="true"
             EnableResize="true" EnableClose="true" Target="Top" OnClose="window3_Close" IsModal="true" Width="800px" Height="600px" runat="server"></f:Window>

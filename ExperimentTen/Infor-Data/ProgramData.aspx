@@ -20,6 +20,8 @@
   background: -webkit-linear-gradient(top,#42a4e0,#2e88c0);
 background: -moz-linear-gradient(top,#42a4e0,#2e88c0);
 background: linear-gradient(top,#42a4e0,#2e88c0);
+filter: progid:DXImageTransform.Microsoft.Gradient(startColorStr='#42a4e0',endColorStr='#2e88c0',gradientType='0');
+
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3em;
     box-shadow: 0 1px white inset;

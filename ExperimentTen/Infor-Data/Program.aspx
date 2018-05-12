@@ -70,6 +70,11 @@
                         <f:Toolbar ID="toolbar_01" runat="server">
                             <Items>
                                 <f:DropDownList ID="DDL" runat="server" Label="学期" LabelAlign="Right" Width="180px" LabelWidth="50px"></f:DropDownList>
+                                <f:DropDownList ID="format" runat="server" Width="180px" LabelWidth="80px" Label="查看格式" LabelAlign="Right"  OnSelectedIndexChanged="ddl_SelectedIndexChanged"  >
+                                    <f:ListItem Text="按活动" Value="按活动"  />
+                                    <f:ListItem Text="按日期" Value="按日期" />
+                                    
+                                </f:DropDownList>
                                 <f:Button ID="btnSearch" Text="查看" Icon="Zoom" runat="server" OnClick="btnSearch_Click"></f:Button>                               
                                 <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" OnClick="btnDelete_Click" ConfirmTitle="注意" ConfirmIcon="Question" ConfirmText="确认删除？"></f:Button>    
                                 <f:Button runat="server" ID="btnSearch_hours" Text="查看工时" Icon="ApplicationViewList" OnClick="btnSearch_hours_Click"/>                                                   
@@ -78,8 +83,8 @@
                     </Toolbars>
             <Items>
                 <f:Grid ID="gridExample" ShowBorder="false" AllowPaging="true" ShowHeader="false"
-                    DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="20"  PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
-                    EnableMultiSelect="false"  runat="server" Height="500px">
+                    DataKeyNames="ID" EnableCollapse="false" EnableCheckBoxSelect="false" PageSize="20"  PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
+                    EnableMultiSelect="false"  runat="server" Height="445px">
                   
                     <Columns>
                         <f:TemplateField Width="80px" TextAlign="Center" HeaderText="序号">
@@ -91,8 +96,9 @@
                                     TextAlign="Center" HeaderText="活动"></f:BoundField>
                           <f:BoundField Width="100px" ColumnID="SySe" SortField="SySe" DataField="SySe"
                                     TextAlign="Center" HeaderText="学期"></f:BoundField>
-                        <f:BoundField Width="120px" ColumnID="Date" SortField="Date" DataField="Date"
+                        <f:BoundField Width="100px" ColumnID="Date" SortField="Date" DataField="Date"
                                     TextAlign="Center" HeaderText="日期"></f:BoundField>
+                       
                       
                     </Columns>
                 </f:Grid>
@@ -104,9 +110,14 @@
                 </f:Region>
             </Regions>
         </f:RegionPanel>
-        
+        <script>
+            document.getElementById("ddl").on
+        </script>
       
-        
+        <!--
+             <f:BoundField Width="120px" ColumnID="Date" SortField="Date" DataField="Date"
+                                    TextAlign="Center" HeaderText="日期" DataFormatString="{0:yyyy-MM-dd}"></f:BoundField>
+            -->
     </form>
 </body>
 </html>

@@ -19,6 +19,7 @@
     padding: .3em .5em;
   background: -webkit-linear-gradient(top,#42a4e0,#2e88c0);
 background: -moz-linear-gradient(top,#42a4e0,#2e88c0);
+background:-o-linear-gradient(top,#42a4e0,#2e88c0);
 background: linear-gradient(top,#42a4e0,#2e88c0);
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3em;
@@ -46,6 +47,7 @@ background: linear-gradient(top,#42a4e0,#2e88c0);
           <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="" EnableCollapse="false" runat="server" 
             DataKeyNames="Id" AutoScroll="true" Width="1507PX">
             </f:Grid>
+        </div>
     </form>
 </body>
 </html>

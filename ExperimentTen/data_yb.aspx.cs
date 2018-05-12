@@ -20,7 +20,7 @@ namespace WHMS
         public string txtId;
         protected void Page_Load(object sender, EventArgs e)
         {
-
+           // Session["id"] = "0121503490120";//测试用
             string id1;
             try { id1 = Session["id"].ToString(); }
             catch
@@ -33,7 +33,7 @@ namespace WHMS
                 if (Convert.ToString(Session["Sid"]) != "")
                 {
                     txtId = Session["Sid"].ToString();
-                    string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID=" + Session["Sid"].ToString();
+                    string sqlStr = "select Program,Date,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString() + "' order by Date desc";
                     DataSet myds = Common.dataSet(sqlStr);
                     gridExample.DataSource = myds;
                     gridExample.DataBind();
@@ -83,6 +83,7 @@ namespace WHMS
             DL2.DataSource = list2;
             DL2.DataBind();
         }
+
         #region 学生信息查询
         //BindGrid1 数据库分页 查询年级学生信息，按班级和学号排序
         private void BindGrid1(string SqlStr)
@@ -139,10 +140,7 @@ namespace WHMS
         #endregion
 
 
-        protected void windowPop_Close(object sender, FineUI.WindowCloseEventArgs e)
-        {
-            this.BindGrid3();
-        }
+     
         #region select_handle
         protected void btnSelect_Click(object sender, EventArgs e)
         {
@@ -152,7 +150,7 @@ namespace WHMS
                 t1 = DL1.SelectedItem.Text;//学年
                 t2 = DL2.SelectedItem.Text;//学期
                 Session["Sid"] = txtId;
-                int count = 0;
+                double count = 0;
                 string sql = "select StuName from Student where StuID='" + txtId + "'";
                 #region 学生工时查询
                 Common.Open();
@@ -165,7 +163,7 @@ namespace WHMS
                         Common.close();
                         DataTable name = Common.datatable(sql);
                         DL2.ForceSelection = true;
-                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"'";
+                        string sqlStr = "select SySe,Program,Date,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"' order by Date desc";
                         DataTable dt = Common.datatable(sqlStr);
                         //gridExample.DataSource = dt;
                         //gridExample.DataBind();
@@ -178,7 +176,7 @@ namespace WHMS
                         {
                             Common.close();
                             DataTable name = Common.datatable(sql);
-                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where (SySe like'%" + t1 + "%') and StuID ='" + Session["Sid"].ToString()+"'";
+                            string sqlStr = "select SySe,Program,Date,[Working_hours] from [Working_hoursInfor] where (SySe like'%" + t1 + "%') and StuID ='" + Session["Sid"].ToString()+ "'order by Date desc";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -190,7 +188,7 @@ namespace WHMS
                         {
                             Common.close();
                             DataTable name = Common.datatable(sql);
-                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where (SySe like'" + t1 + "-" + t2 + "') and StuID ='" + Session["Sid"].ToString()+"'";
+                            string sqlStr = "select SySe,Program,Date,Working_hours from [Working_hoursInfor] where (SySe like'" + t1 + "-" + t2 + "') and StuID ='" + Session["Sid"].ToString()+ "'order by Date desc";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -217,17 +215,17 @@ namespace WHMS
         }
 
 
-        private int OutPutSummaryData(DataTable dt)
+        private double OutPutSummaryData(DataTable dt)
         {
-            int hours = 0;
+            double hours = 0;
             foreach (DataRow dr in dt.Rows)
             {
-                hours += Convert.ToInt32(dr["Working_hours"]);
+                hours += Convert.ToDouble(dr["Working_hours"]);
             }
             JObject summary = new JObject();
             string str = "总工时";
-            summary.Add("Program", hours.ToString("F2"));
-            summary.Add("SySe", str);
+            summary.Add("Working_hours", hours.ToString("F1"));
+            summary.Add("Program", str);
 
             gridExample.SummaryData = summary;
             return hours;

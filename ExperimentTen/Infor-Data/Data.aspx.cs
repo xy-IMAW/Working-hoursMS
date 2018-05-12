@@ -25,17 +25,17 @@ namespace WHMS.Infor_Data
             {
                 SessionManager.CheckLogin("../login.aspx");
                 //判断是否从学生信息页面跳转过来的
-                if (Convert.ToString(Session["Sid"]) != "")
-                {
+               /* if (Convert.ToString(Session["Sid"]) != "")
+                {*/
                     txtId.Text = Session["Sid"].ToString();
-                    string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"'";
+                    string sqlStr = "select SySe,Program,Date,[Working_hours] from [Working_hoursInfor] where StuID='" + Session["Sid"].ToString()+"' order by Date desc";
                     DataSet myds = Common.dataSet(sqlStr);
                     gridExample.DataSource = myds;
                     gridExample.DataBind();
 
-                }
+                /*}*/
 
-                BindGrid3();
+                BindGrid3();//学期下拉框
 
             }
 
@@ -135,7 +135,7 @@ namespace WHMS.Infor_Data
         #endregion
         #endregion
 
-        protected void btnDelete_Click3(object sender, EventArgs e)
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
             if (gridExample.SelectedRowIndex < 0)
             {
@@ -147,8 +147,9 @@ namespace WHMS.Infor_Data
                 {
                     string syse = gridExample.SelectedRow.Values[1].ToString();//选中行的第一列为ID
                     string pro = gridExample.SelectedRow.Values[2].ToString();//选中的活动名
+                    string date = gridExample.SelectedRow.Values[3].ToString();
 
-                    string sqlStr = "delete from [Working_hoursInfor] where SySe= '" + syse + " 'and StuID ='" + Session["Sid"] + "'and Program ='" + pro + "'";
+                    string sqlStr = "delete from [Working_hoursInfor] where SySe= '" + syse + " 'and StuID ='" + txtId.Text + "'and Program ='" + pro + "' and Date = '"+date+"'";
                     Common.ExecuteSql(sqlStr);
                     this.BindGrid3();
                     Alert.ShowInTop("删除成功", "信息", MessageBoxIcon.Information);
@@ -186,7 +187,7 @@ namespace WHMS.Infor_Data
                 t1 = DL1.SelectedItem.Text;//学年
                 t2 = DL2.SelectedItem.Text;//学期
                // Session["Sid"] = txtId.Text;
-                int count = 0;
+                double count = 0;
                 StuID.Text = txtId.Text;
                 string sql = "select StuName from Student where StuID='" + txtId.Text + "'";
                 #region 学生工时查询
@@ -201,7 +202,7 @@ namespace WHMS.Infor_Data
                         DataTable name = Common.datatable(sql);
                         StuName.Text = name.Rows[0][0].ToString();
                         DL2.ForceSelection = true;
-                        string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where StuID='" + txtId.Text + "'";
+                        string sqlStr = "select SySe,Program,Date,[Working_hours] from [Working_hoursInfor] where StuID='" + txtId.Text + "'order by Date desc";
                         DataTable dt = Common.datatable(sqlStr);
                         //gridExample.DataSource = dt;
                         //gridExample.DataBind();
@@ -216,7 +217,7 @@ namespace WHMS.Infor_Data
                             Common.close();
                             DataTable name = Common.datatable(sql);
                             StuName.Text = name.Rows[0][0].ToString();
-                            string sqlStr = "select SySe,Program,[Working_hours] from [Working_hoursInfor] where SySe like('%" + t1 + "%') and StuID ='" + txtId.Text+"'";
+                            string sqlStr = "select SySe,Program,Date,[Working_hours] from [Working_hoursInfor] where SySe like('%" + t1 + "%') and StuID ='" + txtId.Text+ "'order by Date desc";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -230,7 +231,7 @@ namespace WHMS.Infor_Data
                             Common.close();
                             DataTable name = Common.datatable(sql);
                             StuName.Text = name.Rows[0][0].ToString();
-                            string sqlStr = "select SySe,Program,Working_hours from [Working_hoursInfor] where SySe like('" + t1 + "-" + t2 + "') and StuID = '" + txtId.Text+"'";
+                            string sqlStr = "select SySe,Program,Date,Working_hours from [Working_hoursInfor] where SySe like('" + t1 + "-" + t2 + "') and StuID = '" + txtId.Text+ "'order by Date desc";
                             DataTable dt = Common.datatable(sqlStr);
                             //gridExample.DataSource = dt;
                             //gridExample.DataBind();
@@ -258,16 +259,16 @@ namespace WHMS.Infor_Data
         }
 
 
-        private int OutPutSummaryData(DataTable dt)
+        private double OutPutSummaryData(DataTable dt)
         {
-            int hours = 0;
+            double hours = 0;
             foreach (DataRow dr in dt.Rows)
             {
-                hours += Convert.ToInt32(dr["Working_hours"]);
+                hours += Convert.ToDouble(dr["Working_hours"]);
             }
             JObject summary = new JObject();
             string str = "总工时";
-            summary.Add("Working_hours", hours.ToString("F2"));
+            summary.Add("Working_hours", hours.ToString("F1"));
             summary.Add("SySe", str);
 
             gridExample.SummaryData = summary;

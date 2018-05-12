@@ -13,7 +13,7 @@
         <f:Panel ID="panelMain" runat="server" ShowBorder="false" ShowHeader="false" EnableCollapse="true" Layout="Fit">
             <Items>
                 <f:Grid ID="gridExample" Title="权限管理" ShowBorder="true" AllowPaging="true" ShowHeader="true"
-                    DataKeyNames="StuID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="10"  PageIndex="1" OnPageIndexChange="gridExample_PageIndexChange"
+                    DataKeyNames="StuID" EnableCollapse="false" EnableCheckBoxSelect="true" PageSize="20"  PageIndex="0" OnPageIndexChange="gridExample_PageIndexChange"
                     EnableMultiSelect="false"  runat="server">
                     <Toolbars>
                         <f:Toolbar ID="toolbar_01" runat="server">

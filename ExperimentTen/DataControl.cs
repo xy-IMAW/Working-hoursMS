@@ -123,6 +123,7 @@ namespace WHMS
                 Sex= grid.Rows[i].Values[4].ToString();
                 Other= grid.Rows[i].Values[5].ToString();
 
+                NoRepeat = true;
                 string sqlstr1 = "select StuID from Student";
                 Common.Open();
                 SqlDataReader re = Common.ExecuteRead(sqlstr1);
@@ -138,7 +139,7 @@ namespace WHMS
                         flag++;//重复次数
                         break;
                     }
-                    NoRepeat = true;
+                  
                 }
                 Common.close();
                 //未重复才添加
@@ -189,6 +190,7 @@ namespace WHMS
                 SySe = grid.Rows[i].Values[4].ToString();
                 Date = grid.Rows[i].Values[5].ToString();
 
+                NoRepeat = true;
                 string sqlstr1 = "select StuID from [Working_hoursInfor] where( Program ='" + Program+"' and SySe ='"+SySe+"' and Date = '"+Date+"')";
                 Common.Open();
                 SqlDataReader re = Common.ExecuteRead(sqlstr1);
@@ -200,10 +202,10 @@ namespace WHMS
                         NoRepeat = false;
                         flag++;//重复次数
                         break;
-                    }
-                    NoRepeat = true;
+                    }                 
                 }
                 Common.close();
+
                 //未重复才添加
                 if (NoRepeat&&Working_hours!="")
                 {

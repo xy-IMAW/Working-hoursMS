@@ -28,10 +28,11 @@ namespace WHMS
                 else
                 {
                     grid.Hidden = false;
+                    bind();
                     handler.Text = "超级管理员/Administrator";
                 }
                 #endregion
-                bind();
+              
                 btnPasswordUpdate.OnClientClick= window1.GetShowReference("Account/PasswordUpdate.aspx", "修改密码");
             }
 
@@ -138,8 +139,10 @@ namespace WHMS
         //查询登录表
         protected void bind()
         {
-
-            string sql = "select * from Account_Login order by Date desc";
+            string sql;
+            sql = "delete from Login where DATEDIFF(day,Date,GETDATE())>15 ";//删除登陆日期大于15天的记录
+            Common.ExecuteSql(sql);
+             sql = "select * from Account_Login order by Date desc";//查询登陆
             DataTable dt = Common.datatable(sql);
             grid.DataSource = dt;
             grid.DataBind();

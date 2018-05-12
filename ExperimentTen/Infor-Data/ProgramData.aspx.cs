@@ -51,7 +51,7 @@ namespace WHMS.Infor_Data
                 dr[1] = student.Rows[i][1].ToString();
                 dr[2] = student.Rows[i][2].ToString();
 
-                int total = 0;
+                double total = 0;
                 for (int j = 0; j < program.Rows.Count; j++)
                 {
                     for (int t = 0; t < dt.Rows.Count; t++)
@@ -63,7 +63,7 @@ namespace WHMS.Infor_Data
                         if (dt.Rows[t][0].ToString() == student.Rows[i][0].ToString() && dt.Rows[t][2].ToString() == program.Rows[j][0].ToString())
                         {                      
                             dr[3 + j] = dt.Rows[t][3].ToString();
-                            total += Convert.ToInt32(dt.Rows[t][3].ToString());
+                            total += Convert.ToDouble(dt.Rows[t][3].ToString());
                         }
                     }
                 }
@@ -83,7 +83,7 @@ namespace WHMS.Infor_Data
             GridView1.DataBind();
         }
 
-
+        //表格构造
         protected void GridView1_RowCreated(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.Header)
@@ -121,12 +121,12 @@ namespace WHMS.Infor_Data
             }
         }
 
-
+        //导出
         protected void Button2_Click(object sender, EventArgs e)
         {
          //   DataTable dt = new DataTable();
          //   Bind(dt);
-            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',Date as '日期' from Working_hours where Program ='" + Session["Program"] + "' and SySe ='" + Session["SySe"] + "'";
+            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',Date as '日期' from Working_hours where Program ='" + Session["Program"] + "' and SySe ='" + Session["SySe"] + "' order by Date";
             DataTable dt = Common.datatable(sql);
             gridview.DataSource = dt;
             //   NPOItest.Batch_Update(dt);
@@ -137,9 +137,14 @@ namespace WHMS.Infor_Data
 
         }
 
-
+        //数据查询
         public void bindtest() {
-            string sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',convert(varchar(12),Date,111) as '日期' from Working_hours where Program ='" + Session["Program"]+"' and SySe ='"+Session["SySe"]+"'";
+            string sql;
+            if(Session["Date"].Equals(""))//查询该活动的所有日期的工时
+                 sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',convert(varchar(12),Date,111) as '日期' from Working_hours where Program ='" + Session["Program"]+"' and SySe ='"+Session["SySe"]+"' order by Date";
+            else//查询某个日期的活动工时
+                sql = "select StuID as '学号',StuName as '姓名',Class as '班级',Program as '活动',Working_hours as '工时',SySe as '学期',convert(varchar(12),Date,111) as '日期' from Working_hours where Program ='" + Session["Program"] + "' and SySe ='" + Session["SySe"] + "' and Date = '"+Session["Date"]+"'";
+
             DataTable dt = Common.datatable(sql);
             gridview.DataSource = dt;
             gridview.DataBind();

@@ -35,8 +35,8 @@
             border: 0.5625px solid #2576A8;
             background: -webkit-linear-gradient(top,#66B5E6,#2e88c0);
             background: -moz-linear-gradient(top,#66B5E6,#2e88c0);
-            background: linear-gradient(top,#66B5E6,#2e88c0);
             background: -ms-linear-gradient(top,#66B5E6,#2e88c0);
+            background: linear-gradient(top,#66B5E6,#2e88c0);
             box-shadow: 0 1px 2px #8AC1E2 inset,0 -1px 0 #316F96 inset;
             color: #fff;
             text-shadow: 1px 1px 0.5px #22629B;
@@ -51,7 +51,7 @@
 }
     </style>
 </head>
-<body style="width:100%;height:100% ;background-image:url(image/login.jpg);; background-size:100%,100%;  position:absolute;">
+<body style="width:100%;height:100% ;background-image:url(image/login.jpg); background-size:100%,100%;  position:absolute;">
     <form id="form1" runat="server">
         <f:PageManager runat="server" />     
             <!--登陆框-->  
@@ -71,9 +71,14 @@
 
                     <br /><br />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
                     <asp:Button ID="btnLogin" CssClass="btnlog" runat="server" Text="登录" OnClick="btnLogin_Click" />&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                    <asp:Button ID="btnReset" CssClass="btnlog" runat="server" Text="重置" OnClick="btnReset_Click"/>
+                    <asp:Button ID="btnReset" CssClass="btnlog" runat="server" Text="重置" />
                 </div>
                 <script>
+                    document.getElementById("btnReset").onclick = function () {
+                        document.getElementById("tbxStuID").value = "";
+                        document.getElementById("tbxPassword").value = "";
+
+                    };
                     //function ClearTxt() {
                     //    document.getElementById("btnLogin").value = "";
                     //    //document.getElementById("btnReset").value = "";

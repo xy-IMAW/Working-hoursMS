@@ -229,7 +229,8 @@ namespace WHMS.Infor_Data
         }
         // 窗体关闭时刷新页面
         protected void window1_Close(object sender, WindowCloseEventArgs e)
-        {                   
+        {
+            window1.Title = "查看工时";          
              grade = Tree1.Nodes[0].Nodes[0].Text;
             string SqlStr = "select StuID,StuName,Class,Grade,Sex,Other from Student where Grade= " + grade + "order by Class,StuID";
             BindGrid1(SqlStr);

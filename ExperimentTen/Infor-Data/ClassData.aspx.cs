@@ -115,7 +115,7 @@ namespace WHMS.Infor_Data
                 dr[1] = student.Rows[i][1].ToString();//姓名
                 dr[2] = student.Rows[i][2].ToString();//班级
 
-                int total = 0;
+                double total = 0;
                 for (int j = 0; j < program.Rows.Count; j++)
                 {
                     for (int t = 0; t < work.Rows.Count; t++)
@@ -129,7 +129,7 @@ namespace WHMS.Infor_Data
                         {
                             // dr[program.Rows[j][0].ToString()]= work.Rows[t][3].ToString();
                             dr[3 + j] = work.Rows[t][3].ToString();
-                            total += Convert.ToInt32(work.Rows[t][3].ToString());
+                            total += Convert.ToDouble(work.Rows[t][3].ToString());
                         }
                     }
                 }
